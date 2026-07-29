@@ -50,7 +50,7 @@ def transform(th):
 
 def main():
     cells = load_paper_pool()
-    print(f"pool = {len(cells)} cell", flush=True)
+    print(f"pool = {len(cells)} cells", flush=True)
     splits = _kfold_split(cells, 5, seed=42)
     tr, cal, te = splits[0]
 
@@ -58,7 +58,7 @@ def main():
     Xc, yc, _, _ = build_feature_matrix(cal, NE)
     Xall, yall, _, _ = build_feature_matrix(cells, NE)      # the WHOLE pool
     Xtr_n, Xall_n, Xc_n, _ = normalize_features(Xtr, Xall, Xc)
-    print(f"forward on {len(yall)} cell (ne={NE})", flush=True)
+    print(f"forward on {len(yall)} cells (ne={NE})", flush=True)
 
     np.random.seed(0); torch.manual_seed(0)
     m = create_model('PINN_Knee', n_features=Xtr_n.shape[1], device=DEVICE)

@@ -169,7 +169,7 @@ def run_variant(variant, n_early, seed, tr, cal, te):
 
 def main():
     cells = load_paper_pool()
-    print(f"Pool: {len(cells)} cell   device={DEVICE}\n")
+    print(f"Pool: {len(cells)} cells   device={DEVICE}\n")
     splits = _kfold_split(cells, n_folds=N_FOLDS, seed=42)
     variants = ['full', 'arch_only', 'physics_only', 'mlp_matched', 'constant_median']
     total = len(N_EARLY_LIST) * len(variants) * N_FOLDS * len(SEEDS)

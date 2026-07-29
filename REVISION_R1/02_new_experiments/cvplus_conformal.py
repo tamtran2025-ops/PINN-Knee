@@ -127,7 +127,7 @@ def run_outer(ne, seed, tr_cells, te_cells):
 
 def main():
     cells = load_paper_pool()
-    print(f"Pool: {len(cells)} cell   K_inner={K_INNER}   alpha={ALPHA}")
+    print(f"Pool: {len(cells)} cells   K_inner={K_INNER}   alpha={ALPHA}")
     print(f"CV+ guarantee: coverage >= {1-2*ALPHA:.2f}  (Barber et al. 2021)\n")
 
     done = set()

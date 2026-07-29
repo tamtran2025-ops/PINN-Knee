@@ -31,7 +31,7 @@ def main():
     rows = []
     for cond in ('bias', 'drift'):
         print("\n" + "=" * 76)
-        print(f"{cond.upper()}: absolute degradation (MAE_{cond} - MAE_clean), 5 fold")
+        print(f"{cond.upper()}: absolute degradation (MAE_{cond} - MAE_clean), 5 folds")
         print("=" * 76)
         deg = {}
         for m in ('pinn', 'xgb', 'rf'):

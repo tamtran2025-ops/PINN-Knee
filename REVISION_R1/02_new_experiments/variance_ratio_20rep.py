@@ -82,7 +82,7 @@ def one_fold(seed, tr, cal, te):
 
 def main():
     cells = load_paper_pool()
-    print(f"Pool {len(cells)} cell | {len(SPLIT_SEEDS)} repetitions x {K} fold "
+    print(f"Pool {len(cells)} cells | {len(SPLIT_SEEDS)} repetitions x {K} folds "
           f"x 1 seed x 2 variants = {len(SPLIT_SEEDS)*K*2} training runs\n")
 
     done = set()

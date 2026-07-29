@@ -55,7 +55,7 @@ def main():
             print(f"  skipped (per-cell columns missing): {fn}")
             continue
         frames.append(d[['model', 'n_early', 'y_true', 'y_pred']])
-        print(f"  read {fn}: {len(d)} run, {d.model.nunique()} model")
+        print(f"  read {fn}: {len(d)} runs, {d.model.nunique()} models")
 
     df = pd.concat(frames, ignore_index=True)
     res = per_run_metrics(df).sort_values(['n_early', 'MAE_full'])

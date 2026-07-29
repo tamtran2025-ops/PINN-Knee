@@ -102,7 +102,7 @@ def main():
     print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117, f"pool {len(cells)} != 117"
-    print(f"Pool {len(cells)} cell. bias=+{BIAS*100:.0f}%, drift=+{DRIFT*100:.0f}%\n", flush=True)
+    print(f"Pool {len(cells)} cells. bias=+{BIAS*100:.0f}%, drift=+{DRIFT*100:.0f}%\n", flush=True)
     splits = _kfold_split(cells, 5, seed=42)
 
     all_rows = []

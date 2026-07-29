@@ -38,8 +38,8 @@ def main():
     rows = list(csv.DictReader(open(CSV_PATH, encoding='utf-8')))
     print(f"Data: {len(rows)} design points "
           f"({len({r['split_seed'] for r in rows})} repetitions x "
-          f"{len({r['fold'] for r in rows})} fold x "
-          f"{len({r['model_seed'] for r in rows})} seed)\n")
+          f"{len({r['fold'] for r in rows})} folds x "
+          f"{len({r['model_seed'] for r in rows})} seeds)\n")
 
     # Grouped by (repetition, fold)  -  averaged over model seeds
     byfold = collections.defaultdict(dict)

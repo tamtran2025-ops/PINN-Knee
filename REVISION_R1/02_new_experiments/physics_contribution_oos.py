@@ -49,8 +49,8 @@ def main():
     print(f"Writing results to: {OUT}", flush=True)                       # R3
     cells = load_paper_pool()
     assert len(cells) == 117, f"Expected 117 cells, got {len(cells)}"   # R4
-    print(f"Pool {len(cells)} cell, n_early={N_EARLY}, "
-          f"{N_FOLDS} fold x {len(SEEDS)} seed\n", flush=True)
+    print(f"Pool {len(cells)} cells, n_early={N_EARLY}, "
+          f"{N_FOLDS} folds x {len(SEEDS)} seeds\n", flush=True)
 
     splits = _kfold_split(cells, N_FOLDS, seed=42)
     rows, t0 = [], time.time()

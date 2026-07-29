@@ -116,7 +116,7 @@ def one_cell(rep_seed, fold, mseed, tr, cal, te):
 
 def main():
     cells = load_paper_pool()
-    print(f"Pool: {len(cells)} cell   n_early={N_EARLY}   device={DEVICE}")
+    print(f"Pool: {len(cells)} cells   n_early={N_EARLY}   device={DEVICE}")
 
     # verify the fold partition before running
     sp = kfold_split_all(cells, N_FOLDS, 42)

@@ -33,7 +33,7 @@ def main():
             "in REPRODUCE.md section 1 and rerun; the cache is built on the first run. "
             "The extracted feature matrix is available at features_n_early_50/100/150.csv."
         )
-    print(f"Pool: {len(cells)} cell")
+    print(f"Pool: {len(cells)} cells")
     for ne in (50, 100, 150):
         X, y, names, idx = build_feature_matrix(cells, ne)
         used = [cells[i]['name'] for i in idx]
@@ -42,7 +42,7 @@ def main():
         df.insert(0, 'cell_name', used)
         out = os.path.join(HERE, f'features_n_early_{ne}.csv')
         df.to_csv(out, index=False)
-        print(f"  n_early={ne:>3}: {df.shape[0]} cell x {len(names)} features -> "
+        print(f"  n_early={ne:>3}: {df.shape[0]} cells x {len(names)} features -> "
               f"{os.path.basename(out)}  (smallest knee {int(y.min())})")
 
 

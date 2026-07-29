@@ -41,7 +41,7 @@ def main():
     ratio = var_rep / exp_rep
 
     print("=" * 72)
-    print(f"  {len(reps)} repetitions x {K} fold = {len(d)} observed")
+    print(f"  {len(reps)} repetitions x {K} folds = {len(d)} observed")
     print("=" * 72)
     print(f"  mean difference (mlp - arch): {d.mean():+.2f} cycles")
     print(f"  folds with the expected sign               : {int((d>0).sum())}/{len(d)}")

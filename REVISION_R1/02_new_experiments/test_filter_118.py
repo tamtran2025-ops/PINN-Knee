@@ -79,7 +79,7 @@ def main():
     print(f"Loaded from .mat: {len(raw)} raw cells  OK\n", flush=True)
 
     cache_names = {c['name'] for c in pickle.load(open(CACHE, 'rb'))}
-    print(f"Reference cache: {len(cache_names)} cell\n", flush=True)
+    print(f"Reference cache: {len(cache_names)} cells\n", flush=True)
 
     results = {}
     for label, fn in FILTERS.items():
@@ -110,7 +110,7 @@ def main():
     hyp_names = results["gia_thuyet_chi_Q>0"][0]
     n = len(hyp_names)
     print("\n" + "=" * 68)
-    print(f"HYPOTHESIS 'Q > 0 only'  ->  {n} cell")
+    print(f"HYPOTHESIS 'Q > 0 only'  ->  {n} cells")
     print("=" * 68)
     if n == 118:
         print("  => 118. The published number is correct; the abstract needs no change.")

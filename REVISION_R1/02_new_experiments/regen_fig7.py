@@ -29,7 +29,7 @@ pred = np.array([float(r['knee_pred']) for r in rows])
 ratio = np.array([float(r['ratio_abs_delta_over_pred']) for r in rows])
 strata = np.array([r['strata'] for r in rows])
 
-print(f"n={len(rows)} cell | median rho={np.median(ratio)*100:.1f}% "
+print(f"n={len(rows)} cells | median rho={np.median(ratio)*100:.1f}% "
       f"| >30%={100*np.mean(ratio>0.3):.1f}%")
 
 COL = {'near': '#2CA02C', 'mid': '#4C72B0', 'far': '#C44E52'}

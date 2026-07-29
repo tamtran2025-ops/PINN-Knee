@@ -109,8 +109,8 @@ def main():
     if abs(d + 0.4) >= 0.02:
         print("\n  SELF-CONSISTENCY CHECK FAILED: the rule is wrong. Stopping.")
         return
-    print(f"\nPool {len(cells)} cell, n_early={N_EARLY}, "
-          f"{N_FOLDS} fold x {len(SEEDS)} seed x 2 branches\n", flush=True)
+    print(f"\nPool {len(cells)} cells, n_early={N_EARLY}, "
+          f"{N_FOLDS} folds x {len(SEEDS)} seeds x 2 branches\n", flush=True)
 
     done = set()
     if os.path.exists(OUT):
