@@ -1,0 +1,8 @@
+part,threshold,n_cells,pct
+A_consensus,80,25,21.4
+A_consensus,100,30,25.6
+A_consensus,120,36,30.8
+B_sensitivity,median,117,139.61
+B_sensitivity,bacon_watts,117,243.56
+B_sensitivity,curvature,117,139.92
+B_sensitivity,second_derivative,117,134.86

@@ -1,0 +1,994 @@
+{
+ "table1": {
+  "Bayesian_LSTM|50": {
+   "MAE": 269.0,
+   "MAE_std": 25.3,
+   "MedAE": 228.4,
+   "W100": 0.3391,
+   "W50": 0.1826,
+   "n": 15
+  },
+  "Bayesian_LSTM|100": {
+   "MAE": 274.6,
+   "MAE_std": 26.4,
+   "MedAE": 236.0,
+   "W100": 0.3504,
+   "W50": 0.1632,
+   "n": 15
+  },
+  "Bayesian_LSTM|150": {
+   "MAE": 284.3,
+   "MAE_std": 26.2,
+   "MedAE": 260.5,
+   "W100": 0.3206,
+   "W50": 0.1842,
+   "n": 15
+  },
+  "Ensemble_NN|50": {
+   "MAE": 170.9,
+   "MAE_std": 23.6,
+   "MedAE": 102.5,
+   "W100": 0.4783,
+   "W50": 0.284,
+   "n": 15
+  },
+  "Ensemble_NN|100": {
+   "MAE": 156.0,
+   "MAE_std": 12.6,
+   "MedAE": 98.9,
+   "W100": 0.4917,
+   "W50": 0.3118,
+   "n": 15
+  },
+  "Ensemble_NN|150": {
+   "MAE": 133.4,
+   "MAE_std": 12.2,
+   "MedAE": 86.2,
+   "W100": 0.5945,
+   "W50": 0.311,
+   "n": 15
+  },
+  "GRU|50": {
+   "MAE": 267.9,
+   "MAE_std": 25.2,
+   "MedAE": 227.0,
+   "W100": 0.3391,
+   "W50": 0.2261,
+   "n": 15
+  },
+  "GRU|100": {
+   "MAE": 273.1,
+   "MAE_std": 26.4,
+   "MedAE": 234.4,
+   "W100": 0.3504,
+   "W50": 0.2341,
+   "n": 15
+  },
+  "GRU|150": {
+   "MAE": 282.7,
+   "MAE_std": 26.2,
+   "MedAE": 258.9,
+   "W100": 0.3206,
+   "W50": 0.2464,
+   "n": 15
+  },
+  "GaussianProcess|50": {
+   "MAE": 162.5,
+   "MAE_std": 28.1,
+   "MedAE": 82.5,
+   "W100": 0.5304,
+   "W50": 0.3565,
+   "n": 15
+  },
+  "GaussianProcess|100": {
+   "MAE": 147.7,
+   "MAE_std": 19.8,
+   "MedAE": 90.0,
+   "W100": 0.515,
+   "W50": 0.3169,
+   "n": 15
+  },
+  "GaussianProcess|150": {
+   "MAE": 116.4,
+   "MAE_std": 14.7,
+   "MedAE": 64.8,
+   "W100": 0.6398,
+   "W50": 0.4623,
+   "n": 15
+  },
+  "Informer|50": {
+   "MAE": 245.6,
+   "MAE_std": 24.7,
+   "MedAE": 200.5,
+   "W100": 0.3304,
+   "W50": 0.2957,
+   "n": 15
+  },
+  "Informer|100": {
+   "MAE": 249.0,
+   "MAE_std": 26.0,
+   "MedAE": 207.8,
+   "W100": 0.3409,
+   "W50": 0.3053,
+   "n": 15
+  },
+  "Informer|150": {
+   "MAE": 256.3,
+   "MAE_std": 26.2,
+   "MedAE": 232.1,
+   "W100": 0.3301,
+   "W50": 0.3206,
+   "n": 15
+  },
+  "LSTM|50": {
+   "MAE": 268.9,
+   "MAE_std": 25.3,
+   "MedAE": 228.2,
+   "W100": 0.3391,
+   "W50": 0.1855,
+   "n": 15
+  },
+  "LSTM|100": {
+   "MAE": 274.5,
+   "MAE_std": 26.5,
+   "MedAE": 235.9,
+   "W100": 0.3504,
+   "W50": 0.1719,
+   "n": 15
+  },
+  "LSTM|150": {
+   "MAE": 284.1,
+   "MAE_std": 26.3,
+   "MedAE": 260.3,
+   "W100": 0.3206,
+   "W50": 0.1937,
+   "n": 15
+  },
+  "Neural_ODE|50": {
+   "MAE": 194.3,
+   "MAE_std": 40.1,
+   "MedAE": 120.2,
+   "W100": 0.4667,
+   "W50": 0.2609,
+   "n": 15
+  },
+  "Neural_ODE|100": {
+   "MAE": 150.4,
+   "MAE_std": 23.4,
+   "MedAE": 97.3,
+   "W100": 0.5381,
+   "W50": 0.28,
+   "n": 15
+  },
+  "Neural_ODE|150": {
+   "MAE": 135.0,
+   "MAE_std": 15.2,
+   "MedAE": 83.7,
+   "W100": 0.5799,
+   "W50": 0.3496,
+   "n": 15
+  },
+  "PINN_Knee|50": {
+   "MAE": 159.2,
+   "MAE_std": 22.5,
+   "MedAE": 79.2,
+   "W100": 0.5739,
+   "W50": 0.3739,
+   "n": 15
+  },
+  "PINN_Knee|100": {
+   "MAE": 139.6,
+   "MAE_std": 23.0,
+   "MedAE": 69.6,
+   "W100": 0.6155,
+   "W50": 0.4352,
+   "n": 15
+  },
+  "PINN_Knee|150": {
+   "MAE": 117.4,
+   "MAE_std": 16.3,
+   "MedAE": 59.5,
+   "W100": 0.6518,
+   "W50": 0.4723,
+   "n": 15
+  },
+  "PINN_UQ|50": {
+   "MAE": 168.2,
+   "MAE_std": 24.3,
+   "MedAE": 106.1,
+   "W100": 0.4899,
+   "W50": 0.2638,
+   "n": 15
+  },
+  "PINN_UQ|100": {
+   "MAE": 142.8,
+   "MAE_std": 18.4,
+   "MedAE": 86.0,
+   "W100": 0.5663,
+   "W50": 0.3322,
+   "n": 15
+  },
+  "PINN_UQ|150": {
+   "MAE": 124.8,
+   "MAE_std": 10.1,
+   "MedAE": 74.6,
+   "W100": 0.6092,
+   "W50": 0.3513,
+   "n": 15
+  },
+  "PatchTST|50": {
+   "MAE": 245.1,
+   "MAE_std": 24.7,
+   "MedAE": 200.0,
+   "W100": 0.3304,
+   "W50": 0.2957,
+   "n": 15
+  },
+  "PatchTST|100": {
+   "MAE": 249.0,
+   "MAE_std": 26.0,
+   "MedAE": 207.6,
+   "W100": 0.3409,
+   "W50": 0.3053,
+   "n": 15
+  },
+  "PatchTST|150": {
+   "MAE": 256.2,
+   "MAE_std": 26.2,
+   "MedAE": 232.0,
+   "W100": 0.3301,
+   "W50": 0.3206,
+   "n": 15
+  },
+  "Pure_NN|50": {
+   "MAE": 178.4,
+   "MAE_std": 23.4,
+   "MedAE": 114.5,
+   "W100": 0.458,
+   "W50": 0.2348,
+   "n": 15
+  },
+  "Pure_NN|100": {
+   "MAE": 161.5,
+   "MAE_std": 19.3,
+   "MedAE": 112.7,
+   "W100": 0.4564,
+   "W50": 0.2822,
+   "n": 15
+  },
+  "Pure_NN|150": {
+   "MAE": 135.9,
+   "MAE_std": 15.7,
+   "MedAE": 85.0,
+   "W100": 0.5615,
+   "W50": 0.3347,
+   "n": 15
+  },
+  "RandomForest|50": {
+   "MAE": 165.1,
+   "MAE_std": 29.8,
+   "MedAE": 109.4,
+   "W100": 0.5131,
+   "W50": 0.3391,
+   "n": 15
+  },
+  "RandomForest|100": {
+   "MAE": 144.6,
+   "MAE_std": 35.8,
+   "MedAE": 98.6,
+   "W100": 0.5312,
+   "W50": 0.3168,
+   "n": 15
+  },
+  "RandomForest|150": {
+   "MAE": 124.6,
+   "MAE_std": 15.0,
+   "MedAE": 92.0,
+   "W100": 0.543,
+   "W50": 0.3972,
+   "n": 15
+  },
+  "Transformer|50": {
+   "MAE": 246.7,
+   "MAE_std": 24.7,
+   "MedAE": 201.5,
+   "W100": 0.3304,
+   "W50": 0.2957,
+   "n": 15
+  },
+  "Transformer|100": {
+   "MAE": 249.9,
+   "MAE_std": 26.0,
+   "MedAE": 208.5,
+   "W100": 0.3409,
+   "W50": 0.3053,
+   "n": 15
+  },
+  "Transformer|150": {
+   "MAE": 257.1,
+   "MAE_std": 26.2,
+   "MedAE": 232.9,
+   "W100": 0.3301,
+   "W50": 0.3206,
+   "n": 15
+  },
+  "XGBoost|50": {
+   "MAE": 194.2,
+   "MAE_std": 42.4,
+   "MedAE": 115.1,
+   "W100": 0.4522,
+   "W50": 0.313,
+   "n": 15
+  },
+  "XGBoost|100": {
+   "MAE": 160.5,
+   "MAE_std": 28.2,
+   "MedAE": 109.5,
+   "W100": 0.4683,
+   "W50": 0.3334,
+   "n": 15
+  },
+  "XGBoost|150": {
+   "MAE": 138.4,
+   "MAE_std": 23.7,
+   "MedAE": 98.3,
+   "W100": 0.5165,
+   "W50": 0.4136,
+   "n": 15
+  }
+ },
+ "wilcoxon": {
+  "Bayesian_LSTM|50": 0.0312,
+  "Ensemble_NN|50": 0.1562,
+  "GRU|50": 0.0312,
+  "GaussianProcess|50": 0.7812,
+  "Informer|50": 0.0312,
+  "LSTM|50": 0.0312,
+  "Neural_ODE|50": 0.0312,
+  "PINN_UQ|50": 0.1562,
+  "PatchTST|50": 0.0312,
+  "Pure_NN|50": 0.1562,
+  "RandomForest|50": 0.3125,
+  "Transformer|50": 0.0312,
+  "XGBoost|50": 0.0625,
+  "Bayesian_LSTM|100": 0.0312,
+  "Ensemble_NN|100": 0.0625,
+  "GRU|100": 0.0312,
+  "GaussianProcess|100": 0.0625,
+  "Informer|100": 0.0312,
+  "LSTM|100": 0.0312,
+  "Neural_ODE|100": 0.0625,
+  "PINN_UQ|100": 0.1562,
+  "PatchTST|100": 0.0312,
+  "Pure_NN|100": 0.0312,
+  "RandomForest|100": 0.4062,
+  "Transformer|100": 0.0312,
+  "XGBoost|100": 0.0312,
+  "Bayesian_LSTM|150": 0.0312,
+  "Ensemble_NN|150": 0.0312,
+  "GRU|150": 0.0312,
+  "GaussianProcess|150": 0.6875,
+  "Informer|150": 0.0312,
+  "LSTM|150": 0.0312,
+  "Neural_ODE|150": 0.0312,
+  "PINN_UQ|150": 0.0938,
+  "PatchTST|150": 0.0312,
+  "Pure_NN|150": 0.0312,
+  "RandomForest|150": 0.0312,
+  "Transformer|150": 0.0312,
+  "XGBoost|150": 0.0312
+ },
+ "friedman": {
+  "50": {
+   "chi2": 53.0,
+   "p": 9.036754014957269e-07,
+   "mean_rank": {
+    "Bayesian_LSTM": 13.8,
+    "Ensemble_NN": 4.0,
+    "GRU": 11.8,
+    "GaussianProcess": 3.0,
+    "Informer": 9.8,
+    "LSTM": 12.8,
+    "Neural_ODE": 6.6,
+    "PINN_Knee": 3.6,
+    "PINN_UQ": 4.0,
+    "PatchTST": 8.8,
+    "Pure_NN": 5.2,
+    "RandomForest": 3.6,
+    "Transformer": 10.8,
+    "XGBoost": 7.2
+   },
+   "nemenyi_vs_pinn": {
+    "Bayesian_LSTM": 0.0,
+    "Ensemble_NN": 1.0,
+    "GRU": 0.001,
+    "GaussianProcess": 1.0,
+    "Informer": 0.0565,
+    "LSTM": 0.0001,
+    "Neural_ODE": 0.9457,
+    "PINN_UQ": 1.0,
+    "PatchTST": 0.2347,
+    "Pure_NN": 0.9999,
+    "RandomForest": 1.0,
+    "Transformer": 0.0089,
+    "XGBoost": 0.8135
+   }
+  },
+  "100": {
+   "chi2": 57.4,
+   "p": 1.54643731401751e-07,
+   "mean_rank": {
+    "Bayesian_LSTM": 14.0,
+    "Ensemble_NN": 5.4,
+    "GRU": 12.0,
+    "GaussianProcess": 4.0,
+    "Informer": 9.6,
+    "LSTM": 13.0,
+    "Neural_ODE": 4.8,
+    "PINN_Knee": 2.6,
+    "PINN_UQ": 3.0,
+    "PatchTST": 9.4,
+    "Pure_NN": 6.8,
+    "RandomForest": 3.4,
+    "Transformer": 11.0,
+    "XGBoost": 6.0
+   },
+   "nemenyi_vs_pinn": {
+    "Bayesian_LSTM": 0.0,
+    "Ensemble_NN": 0.9686,
+    "GRU": 0.0,
+    "GaussianProcess": 1.0,
+    "Informer": 0.0133,
+    "LSTM": 0.0,
+    "Neural_ODE": 0.9965,
+    "PINN_UQ": 1.0,
+    "PatchTST": 0.0196,
+    "Pure_NN": 0.5962,
+    "RandomForest": 1.0,
+    "Transformer": 0.0006,
+    "XGBoost": 0.8688
+   }
+  },
+  "150": {
+   "chi2": 59.7,
+   "p": 6.063758967469142e-08,
+   "mean_rank": {
+    "Bayesian_LSTM": 14.0,
+    "Ensemble_NN": 5.6,
+    "GRU": 12.0,
+    "GaussianProcess": 2.0,
+    "Informer": 10.0,
+    "LSTM": 13.0,
+    "Neural_ODE": 5.8,
+    "PINN_Knee": 1.8,
+    "PINN_UQ": 4.0,
+    "PatchTST": 9.0,
+    "Pure_NN": 6.4,
+    "RandomForest": 4.2,
+    "Transformer": 11.0,
+    "XGBoost": 6.2
+   },
+   "nemenyi_vs_pinn": {
+    "Bayesian_LSTM": 0.0,
+    "Ensemble_NN": 0.7481,
+    "GRU": 0.0,
+    "GaussianProcess": 1.0,
+    "Informer": 0.001,
+    "LSTM": 0.0,
+    "Neural_ODE": 0.6747,
+    "PINN_UQ": 0.9965,
+    "PatchTST": 0.0089,
+    "Pure_NN": 0.4371,
+    "RandomForest": 0.9919,
+    "Transformer": 0.0001,
+    "XGBoost": 0.5159
+   }
+  }
+ },
+ "table2": {
+  "Bayesian_LSTM|50": {
+   "d": -109.8,
+   "lo": -136.9,
+   "hi": -86.6,
+   "sig": "*"
+  },
+  "Bayesian_LSTM|100": {
+   "d": -135.0,
+   "lo": -158.5,
+   "hi": -106.5,
+   "sig": "*"
+  },
+  "Bayesian_LSTM|150": {
+   "d": -166.9,
+   "lo": -191.7,
+   "hi": -146.8,
+   "sig": "*"
+  },
+  "Ensemble_NN|50": {
+   "d": -11.7,
+   "lo": -33.1,
+   "hi": 11.4,
+   "sig": "ns"
+  },
+  "Ensemble_NN|100": {
+   "d": -16.4,
+   "lo": -37.5,
+   "hi": -3.9,
+   "sig": "*"
+  },
+  "Ensemble_NN|150": {
+   "d": -16.0,
+   "lo": -21.8,
+   "hi": -9.4,
+   "sig": "*"
+  },
+  "GRU|50": {
+   "d": -108.6,
+   "lo": -135.5,
+   "hi": -85.5,
+   "sig": "*"
+  },
+  "GRU|100": {
+   "d": -133.5,
+   "lo": -157.0,
+   "hi": -106.4,
+   "sig": "*"
+  },
+  "GRU|150": {
+   "d": -165.3,
+   "lo": -190.0,
+   "hi": -145.2,
+   "sig": "*"
+  },
+  "GaussianProcess|50": {
+   "d": -3.2,
+   "lo": -32.2,
+   "hi": 8.7,
+   "sig": "ns"
+  },
+  "GaussianProcess|100": {
+   "d": -8.1,
+   "lo": -13.4,
+   "hi": -2.8,
+   "sig": "*"
+  },
+  "GaussianProcess|150": {
+   "d": 1.0,
+   "lo": -3.2,
+   "hi": 5.2,
+   "sig": "ns"
+  },
+  "Informer|50": {
+   "d": -86.4,
+   "lo": -109.9,
+   "hi": -64.7,
+   "sig": "*"
+  },
+  "Informer|100": {
+   "d": -109.4,
+   "lo": -130.0,
+   "hi": -82.1,
+   "sig": "*"
+  },
+  "Informer|150": {
+   "d": -138.9,
+   "lo": -161.8,
+   "hi": -117.2,
+   "sig": "*"
+  },
+  "LSTM|50": {
+   "d": -109.7,
+   "lo": -136.0,
+   "hi": -85.7,
+   "sig": "*"
+  },
+  "LSTM|100": {
+   "d": -134.9,
+   "lo": -158.3,
+   "hi": -106.2,
+   "sig": "*"
+  },
+  "LSTM|150": {
+   "d": -166.7,
+   "lo": -190.6,
+   "hi": -146.5,
+   "sig": "*"
+  },
+  "Neural_ODE|50": {
+   "d": -35.1,
+   "lo": -55.3,
+   "hi": -21.4,
+   "sig": "*"
+  },
+  "Neural_ODE|100": {
+   "d": -10.8,
+   "lo": -18.0,
+   "hi": 0.9,
+   "sig": "ns"
+  },
+  "Neural_ODE|150": {
+   "d": -17.6,
+   "lo": -23.4,
+   "hi": -9.4,
+   "sig": "*"
+  },
+  "PINN_UQ|50": {
+   "d": -8.9,
+   "lo": -23.3,
+   "hi": 7.3,
+   "sig": "ns"
+  },
+  "PINN_UQ|100": {
+   "d": -3.1,
+   "lo": -10.2,
+   "hi": 1.9,
+   "sig": "ns"
+  },
+  "PINN_UQ|150": {
+   "d": -7.5,
+   "lo": -22.2,
+   "hi": -0.2,
+   "sig": "*"
+  },
+  "PatchTST|50": {
+   "d": -85.9,
+   "lo": -109.2,
+   "hi": -63.3,
+   "sig": "*"
+  },
+  "PatchTST|100": {
+   "d": -109.4,
+   "lo": -131.6,
+   "hi": -82.1,
+   "sig": "*"
+  },
+  "PatchTST|150": {
+   "d": -138.8,
+   "lo": -161.7,
+   "hi": -117.9,
+   "sig": "*"
+  },
+  "Pure_NN|50": {
+   "d": -19.2,
+   "lo": -39.1,
+   "hi": 4.1,
+   "sig": "ns"
+  },
+  "Pure_NN|100": {
+   "d": -21.9,
+   "lo": -33.0,
+   "hi": -12.5,
+   "sig": "*"
+  },
+  "Pure_NN|150": {
+   "d": -18.5,
+   "lo": -24.9,
+   "hi": -12.6,
+   "sig": "*"
+  },
+  "RandomForest|50": {
+   "d": -5.9,
+   "lo": -15.6,
+   "hi": 3.6,
+   "sig": "ns"
+  },
+  "RandomForest|100": {
+   "d": -5.0,
+   "lo": -19.4,
+   "hi": 7.0,
+   "sig": "ns"
+  },
+  "RandomForest|150": {
+   "d": -7.3,
+   "lo": -13.0,
+   "hi": -2.1,
+   "sig": "*"
+  },
+  "Transformer|50": {
+   "d": -87.5,
+   "lo": -111.1,
+   "hi": -65.6,
+   "sig": "*"
+  },
+  "Transformer|100": {
+   "d": -110.3,
+   "lo": -132.6,
+   "hi": -84.2,
+   "sig": "*"
+  },
+  "Transformer|150": {
+   "d": -139.7,
+   "lo": -163.2,
+   "hi": -120.0,
+   "sig": "*"
+  },
+  "XGBoost|50": {
+   "d": -35.0,
+   "lo": -64.6,
+   "hi": -3.3,
+   "sig": "*"
+  },
+  "XGBoost|100": {
+   "d": -20.9,
+   "lo": -30.9,
+   "hi": -9.4,
+   "sig": "*"
+  },
+  "XGBoost|150": {
+   "d": -21.1,
+   "lo": -28.1,
+   "hi": -10.4,
+   "sig": "*"
+  }
+ },
+ "bca_mean": {
+  "Bayesian_LSTM|50": {
+   "mean": 269.0,
+   "lo": 256.8,
+   "hi": 282.7
+  },
+  "Bayesian_LSTM|100": {
+   "mean": 274.6,
+   "lo": 261.2,
+   "hi": 287.9
+  },
+  "Bayesian_LSTM|150": {
+   "mean": 284.3,
+   "lo": 269.2,
+   "hi": 296.0
+  },
+  "Ensemble_NN|50": {
+   "mean": 170.9,
+   "lo": 160.2,
+   "hi": 184.0
+  },
+  "Ensemble_NN|100": {
+   "mean": 156.0,
+   "lo": 150.7,
+   "hi": 164.2
+  },
+  "Ensemble_NN|150": {
+   "mean": 133.4,
+   "lo": 125.8,
+   "hi": 138.6
+  },
+  "GRU|50": {
+   "mean": 267.9,
+   "lo": 255.6,
+   "hi": 281.4
+  },
+  "GRU|100": {
+   "mean": 273.1,
+   "lo": 259.7,
+   "hi": 286.5
+  },
+  "GRU|150": {
+   "mean": 282.7,
+   "lo": 267.6,
+   "hi": 294.3
+  },
+  "GaussianProcess|50": {
+   "mean": 162.5,
+   "lo": 148.0,
+   "hi": 176.1
+  },
+  "GaussianProcess|100": {
+   "mean": 147.7,
+   "lo": 136.5,
+   "hi": 157.0
+  },
+  "GaussianProcess|150": {
+   "mean": 116.4,
+   "lo": 108.9,
+   "hi": 123.9
+  },
+  "Informer|50": {
+   "mean": 245.6,
+   "lo": 233.0,
+   "hi": 258.2
+  },
+  "Informer|100": {
+   "mean": 249.0,
+   "lo": 235.4,
+   "hi": 261.7
+  },
+  "Informer|150": {
+   "mean": 256.3,
+   "lo": 241.1,
+   "hi": 267.9
+  },
+  "LSTM|50": {
+   "mean": 268.9,
+   "lo": 256.7,
+   "hi": 282.6
+  },
+  "LSTM|100": {
+   "mean": 274.5,
+   "lo": 261.2,
+   "hi": 287.8
+  },
+  "LSTM|150": {
+   "mean": 284.1,
+   "lo": 269.1,
+   "hi": 295.9
+  },
+  "Neural_ODE|50": {
+   "mean": 194.3,
+   "lo": 176.9,
+   "hi": 218.1
+  },
+  "Neural_ODE|100": {
+   "mean": 150.4,
+   "lo": 137.9,
+   "hi": 161.7
+  },
+  "Neural_ODE|150": {
+   "mean": 135.0,
+   "lo": 128.2,
+   "hi": 143.9
+  },
+  "PINN_Knee|50": {
+   "mean": 159.2,
+   "lo": 147.0,
+   "hi": 170.0
+  },
+  "PINN_Knee|100": {
+   "mean": 139.6,
+   "lo": 125.6,
+   "hi": 149.5
+  },
+  "PINN_Knee|150": {
+   "mean": 117.4,
+   "lo": 108.2,
+   "hi": 124.9
+  },
+  "PINN_UQ|50": {
+   "mean": 168.2,
+   "lo": 156.1,
+   "hi": 180.8
+  },
+  "PINN_UQ|100": {
+   "mean": 142.8,
+   "lo": 132.2,
+   "hi": 150.9
+  },
+  "PINN_UQ|150": {
+   "mean": 124.8,
+   "lo": 120.1,
+   "hi": 130.4
+  },
+  "PatchTST|50": {
+   "mean": 245.1,
+   "lo": 232.4,
+   "hi": 257.7
+  },
+  "PatchTST|100": {
+   "mean": 249.0,
+   "lo": 235.3,
+   "hi": 261.6
+  },
+  "PatchTST|150": {
+   "mean": 256.2,
+   "lo": 241.0,
+   "hi": 267.8
+  },
+  "Pure_NN|50": {
+   "mean": 178.4,
+   "lo": 166.8,
+   "hi": 190.3
+  },
+  "Pure_NN|100": {
+   "mean": 161.5,
+   "lo": 152.4,
+   "hi": 172.0
+  },
+  "Pure_NN|150": {
+   "mean": 135.9,
+   "lo": 128.4,
+   "hi": 144.4
+  },
+  "RandomForest|50": {
+   "mean": 165.1,
+   "lo": 148.6,
+   "hi": 179.1
+  },
+  "RandomForest|100": {
+   "mean": 144.6,
+   "lo": 125.0,
+   "hi": 161.4
+  },
+  "RandomForest|150": {
+   "mean": 124.6,
+   "lo": 117.2,
+   "hi": 132.4
+  },
+  "Transformer|50": {
+   "mean": 246.7,
+   "lo": 234.1,
+   "hi": 259.4
+  },
+  "Transformer|100": {
+   "mean": 249.9,
+   "lo": 236.3,
+   "hi": 262.6
+  },
+  "Transformer|150": {
+   "mean": 257.1,
+   "lo": 241.9,
+   "hi": 268.7
+  },
+  "XGBoost|50": {
+   "mean": 194.2,
+   "lo": 174.6,
+   "hi": 217.8
+  },
+  "XGBoost|100": {
+   "mean": 160.5,
+   "lo": 145.9,
+   "hi": 174.6
+  },
+  "XGBoost|150": {
+   "mean": 138.4,
+   "lo": 124.0,
+   "hi": 148.9
+  }
+ },
+ "table3": {
+  "full": {
+   "MAE": 139.61
+  },
+  "no_ic": {
+   "MAE": 139.44,
+   "d": -0.17,
+   "lo": -0.44,
+   "hi": 0.02,
+   "sig": "ns"
+  },
+  "no_ode": {
+   "MAE": 137.81,
+   "d": -1.81,
+   "lo": -5.43,
+   "hi": 1.89,
+   "sig": "ns"
+  },
+  "no_knee_transition": {
+   "MAE": 141.05,
+   "d": 1.43,
+   "lo": -0.46,
+   "hi": 4.2,
+   "sig": "ns"
+  },
+  "no_sei": {
+   "MAE": 141.58,
+   "d": 1.97,
+   "lo": 0.11,
+   "hi": 5.18,
+   "sig": "sig"
+  },
+  "no_monotonic": {
+   "MAE": 140.52,
+   "d": 0.9,
+   "lo": -0.32,
+   "hi": 3.43,
+   "sig": "ns"
+  },
+  "no_physics": {
+   "MAE": 139.12,
+   "d": -0.49,
+   "lo": -5.6,
+   "hi": 4.08,
+   "sig": "ns"
+  }
+ },
+ "classical_raw": {
+  "GaussianProcess|50": 172.6,
+  "GaussianProcess|100": 157.2,
+  "GaussianProcess|150": 147.1,
+  "RandomForest|50": 171.6,
+  "RandomForest|100": 138.2,
+  "RandomForest|150": 123.3,
+  "XGBoost|50": 204.2,
+  "XGBoost|100": 160.1,
+  "XGBoost|150": 152.4
+ }
+}

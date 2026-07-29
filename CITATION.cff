@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "PINN-Knee: Physics-Constrained Deep Learning with Conformal Prediction for Early Knee-Point Prediction in Lithium-Ion Batteries"
+authors:
+  - family-names: "Tran"
+    given-names: "Thanh Trang"
+    email: "trangtt@huit.edu.vn"
+    affiliation: "Ho Chi Minh City University of Industry and Trade"
+    orcid: "https://orcid.org/0009-0000-1173-987X"
+  - family-names: "Tran"
+    given-names: "Nhut Tam"
+    affiliation: "Ho Chi Minh City University of Technology (HCMUT), VNU-HCM"
+    orcid: "https://orcid.org/0009-0002-7756-232X"
+version: "1.0.0"
+date-released: "2026-07-29"
+license: MIT
+repository-code: "https://github.com/tamtran2025-ops/PINN-Knee"
+type: software
+keywords:
+  - lithium-ion battery
+  - knee-point prediction
+  - physics-informed neural network
+  - uncertainty quantification
+  - conformal prediction
+  - remaining useful life
+preferred-citation:
+  type: article
+  title: "Physics-Constrained Deep Learning with Conformal Prediction for Early Knee-Point Prediction in Lithium-Ion Batteries"
+  authors:
+    - family-names: "Tran"
+      given-names: "Thanh Trang"
+    - family-names: "Tran"
+      given-names: "Nhut Tam"
+  journal: "Journal of Energy Storage"
+  year: 2026
+  status: "under review"

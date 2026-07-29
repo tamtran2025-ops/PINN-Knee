@@ -1,0 +1,47 @@
+{
+  "baseline": {
+    "MAE_mean": 201.2,
+    "MAE_std": 20.6,
+    "n_runs": 15
+  },
+  "alpha_+20pct": {
+    "MAE_mean": 200.1,
+    "MAE_std": 20.5,
+    "n_runs": 15
+  },
+  "alpha_-20pct": {
+    "MAE_mean": 204.7,
+    "MAE_std": 23.0,
+    "n_runs": 15
+  },
+  "beta_+20pct": {
+    "MAE_mean": 201.2,
+    "MAE_std": 21.1,
+    "n_runs": 15
+  },
+  "beta_-20pct": {
+    "MAE_mean": 202.0,
+    "MAE_std": 20.6,
+    "n_runs": 15
+  },
+  "gamma_+20pct": {
+    "MAE_mean": 201.2,
+    "MAE_std": 20.6,
+    "n_runs": 15
+  },
+  "gamma_-20pct": {
+    "MAE_mean": 201.2,
+    "MAE_std": 20.6,
+    "n_runs": 15
+  },
+  "delta_+20pct": {
+    "MAE_mean": 201.8,
+    "MAE_std": 19.8,
+    "n_runs": 15
+  },
+  "delta_-20pct": {
+    "MAE_mean": 200.7,
+    "MAE_std": 20.1,
+    "n_runs": 15
+  }
+}
