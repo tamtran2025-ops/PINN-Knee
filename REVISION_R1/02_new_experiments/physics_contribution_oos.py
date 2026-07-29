@@ -36,7 +36,7 @@ N_EARLY, SEEDS, N_FOLDS = 100, [0, 1, 2], 5
 
 
 def extract(model, Xn):
-    """Tra ve (n_phys, delta)  -  both of shape (N,)."""
+    """Return (n_phys, delta)  -  both of shape (N,)."""
     model.eval()
     with torch.no_grad():
         Xt = torch.tensor(Xn, dtype=torch.float32).to(DEVICE)
@@ -129,7 +129,7 @@ def main():
     print(f"  (1) rho gap in/out = {drho:.1f} points  -> "
           f"{'the ~89% claim survives' if drho < 3 else 'the ~89% claim must be revised'}")
     ok2 = res['out']['mae_nph'] < res['out']['mae_const']
-    print(f"  (2) n_phys out-of-sample {'thap' if ok2 else 'CAO'} than the constant -> "
+    print(f"  (2) n_phys out-of-sample {'lower' if ok2 else 'HIGHER'} than the constant -> "
           f"{'the physics-only statement survives' if ok2 else 'the physics-only statement must go'}")
     print(f"  (3) r: in={res['in']['r']:+.3f} vs out={res['out']['r']:+.3f}  "
           f"(gap {abs(res['in']['r']-res['out']['r']):.3f})")

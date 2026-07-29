@@ -39,7 +39,7 @@ plt.rcParams.update({
 
 
 def transform(th):
-    """th = tanh(z) (N,5) -> a,b,c,d,s after the bounding transform (theo models.py)."""
+    """th = tanh(z) (N,5) -> a,b,c,d,s after the bounding transform (as in models.py)."""
     a = 0.9 + 0.2 * th[:, 0]
     b = np.exp(-6.0 + 1.5 * th[:, 1])
     c = 0.15 + 0.10 * th[:, 2]
@@ -95,7 +95,7 @@ def main():
         for i in range(len(y)):
             w.writerow([a[i], b[i], c[i], d[i], s[i], dob[i], nphys[i], delta[i], y[i]])
 
-    # ---------- VE ----------
+    # ---------- PLOT ----------
     fig, axes = plt.subplots(2, 3, figsize=(12.83, 7.60))
     fig.suptitle(r"PINN-Knee Physics Parameter Validation (Severson, $n_{\mathrm{early}}=100$)",
                  fontsize=13, y=0.985)

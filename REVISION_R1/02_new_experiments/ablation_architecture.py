@@ -200,7 +200,7 @@ def main():
                           f"MAE={r['MAE']:7.1f}   ETA {eta:5.1f}p")
 
     print("\n" + "=" * 76)
-    print("  ABLATION KIEN TRUC")
+    print("  ABLATION ARCHITECTURE")
     print("=" * 76)
     print(f"  {'variant':<18s}" + "".join(f"{f'ne={n}':>12s}" for n in N_EARLY_LIST) + f"{'#params':>10s}")
     print("  " + "-" * 72)

@@ -94,7 +94,7 @@ def main():
         print(f"    cells with knee <= 50: {int((ks <= 50).sum())}\n", flush=True)
 
     # ---- control: must return exactly 117 cells and exactly the cache membership ----
-    ctrl_names = results["doi_chung_0_den_1.1"][0]
+    ctrl_names = results["control_0_to_1.1"][0]
     print("=" * 68)
     print("Control: must return 117 cells and match the cache membership")
     print("=" * 68)
@@ -107,7 +107,7 @@ def main():
         return
 
     # ---- conclusion against the thresholds recorded in advance ----
-    hyp_names = results["gia_thuyet_chi_Q>0"][0]
+    hyp_names = results["hypothesis_Q_gt_0"][0]
     n = len(hyp_names)
     print("\n" + "=" * 68)
     print(f"HYPOTHESIS 'Q > 0 only'  ->  {n} cells")
@@ -117,10 +117,10 @@ def main():
         extra = sorted(hyp_names - cache_names)
         print(f"  The 118th cell: {extra}")
         for e in extra:
-            k = dict(results['gia_thuyet_chi_Q>0'][2:] and
+            k = dict(results['hypothesis_Q_gt_0'][2:] and
                      {n_: k_ for n_, k_ in
                       zip([x for x in sorted(hyp_names)], [])}) if False else None
-        ks = results["gia_thuyet_chi_Q>0"][2]
+        ks = results["hypothesis_Q_gt_0"][2]
         print(f"  cells with knee <= 50 (dropped by build_feature_matrix at ne=50): "
               f"{int((ks <= 50).sum())}")
     elif n == 117:

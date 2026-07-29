@@ -103,7 +103,7 @@ def main():
     print("\n" + "=" * 86)
     print("EQUAL DATA ALLOCATION (tr+cal): PINN against the best classical baseline")
     print("=" * 86)
-    print(f"{'n_early':>8}{'phuong phap':>34}{'MAE':>9}{'MedAE':>9}{'W100':>8}")
+    print(f"{'n_early':>8}{'method':>34}{'MAE':>9}{'MedAE':>9}{'W100':>8}")
     print("-" * 86)
     for ne in (50, 100, 150):
         nm, cm, cmed, cw = CLASSICAL_TRCAL[ne]

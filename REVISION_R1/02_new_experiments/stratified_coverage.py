@@ -90,12 +90,12 @@ def main():
 =======================================================================
   HOW TO READ
 =======================================================================
-  Conformal only guarantees MARGINAL coverage. Conditional coverage la
-  is not attainable without further assumptions (Barber et al., 2021, Section 4);
-  Vovk 2012; Lei & Wasserman 2014). Therefore:
+  Conformal only guarantees MARGINAL coverage. Exact conditional coverage is not
+  attainable without further assumptions (Barber et al., 2021, Section 4; Vovk 2012;
+  Lei & Wasserman 2014). Therefore:
 
-  - If the spread across strata is below about 0.05, report it plainly, citing the known
-    a theoretical limit. Reporting it plainly is the complete and honest answer.
+  - If the spread across strata is below about 0.05, report it plainly and cite that
+    known theoretical limit. That is the complete and honest answer.
   - If the imbalance is large it must not be hidden. Report it, and if needed use
     locally adaptive or normalised conformal variants.
 """)

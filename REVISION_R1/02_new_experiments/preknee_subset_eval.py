@@ -17,7 +17,7 @@ def _split(s, cast=float):
 
 
 def per_run_metrics(df):
-    """Tra ve DataFrame: model, n_early, MAE_full, MAE_preknee, n_drop_mean, n_test_mean."""
+    """Return a DataFrame: model, n_early, MAE_full, MAE_preknee, n_drop_mean, n_test_mean."""
     out = []
     for (model, ne), g in df.groupby(['model', 'n_early']):
         full, pre, drops, ntest = [], [], [], []
@@ -28,7 +28,7 @@ def per_run_metrics(df):
                 continue
             err = np.abs(yt - yp)
             full.append(err.mean())
-            keep = yt > ne                      # chi giu cell pre-knee that su
+            keep = yt > ne                      # keep only genuinely pre-knee cells
             drops.append(int((~keep).sum()))
             ntest.append(len(yt))
             if keep.sum() > 0:

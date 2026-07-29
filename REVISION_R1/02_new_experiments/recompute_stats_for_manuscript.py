@@ -80,7 +80,7 @@ def main():
     cs = cell_stats(rows)
     RES['table1'] = {}
     print("=" * 100)
-    print("TABLE 1 (fair, log-target; classical tu classical_log)")
+    print("TABLE 1 (fair, log-target; classical from classical_log)")
     print("=" * 100)
     hdr = f"{'model':<16s}"
     for ne in NES:
@@ -138,7 +138,7 @@ def main():
         order = np.argsort(mean_rank)
         top4 = [(models[i], round(mean_rank[i], 2)) for i in order[:4]]
         print(f"ne={ne:>3d}: chi2F={chi2:.1f}  p={p:.2e}  top4 ranks: {top4}")
-        # Nemenyi: q = (Ri-Rj)/sqrt(k(k+1)/(12 nf)); p tu studentized range (q*sqrt2)
+        # Nemenyi: q = (Ri-Rj)/sqrt(k(k+1)/(12 nf)); p from the studentized range (q*sqrt2)
         se = np.sqrt(k * (k + 1) / (12.0 * nf))
         ipinn = models.index('PINN_Knee')
         nem = {}

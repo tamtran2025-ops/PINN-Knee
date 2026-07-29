@@ -58,7 +58,7 @@ def one_fold(seed, tr, cal, te):
     nf = Xtr_n.shape[1]
     Xte_t = torch.tensor(Xte_n, dtype=torch.float32).to(DEVICE)
 
-    # arch_only: kien truc PINN_Knee, bo 5 physics loss
+    # arch_only: PINN_Knee architecture, five physics losses removed
     np.random.seed(seed); torch.manual_seed(seed)
     m1 = create_model('PINN_Knee', n_features=nf, device=DEVICE)
     m1, _ = train_pinn_knee(m1, Xtr_n, ytr, tr, N_EARLY,

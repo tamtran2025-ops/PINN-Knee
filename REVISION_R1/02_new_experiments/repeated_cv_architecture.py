@@ -84,7 +84,7 @@ def one_cell(rep_seed, fold, mseed, tr, cal, te):
             yte, m.predict_raw(Xte_t).cpu().numpy().ravel())['MAE']
         m._delta_scale = saved
 
-    # --- arch_only: bo 5 physics loss ---
+    # --- arch_only: five physics losses removed ---
     np.random.seed(mseed); torch.manual_seed(mseed)
     m2 = create_model('PINN_Knee', n_features=nf, device=DEVICE)
     m2, _ = train_pinn_knee(m2, Xtr_n, ytr, tr, N_EARLY,

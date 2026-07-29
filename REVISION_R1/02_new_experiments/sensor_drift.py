@@ -71,7 +71,7 @@ def run(ne, seed, tr, cal, te):
     Xc, yc, _, _ = build_feature_matrix(cal, ne)
     if Xtr.size == 0:
         return []
-    # scaler tu train (clean)
+    # scaler fitted on the clean training split
     Xtr_n, _, Xc_n, scaler = normalize_features(Xtr, Xtr, Xc if Xc.size else None)
 
     pinn = create_model('PINN_Knee', n_features=Xtr_n.shape[1], device=DEVICE)
@@ -133,7 +133,7 @@ def main():
     print("\n" + "=" * 66)
     print("  % increase in MAE relative to clean (lower is more robust)")
     print("=" * 66)
-    print(f"  {'dieu kien':<14s}{'PINN %':>10s}{'XGBoost %':>12s}")
+    print(f"  {'condition':<14s}{'PINN %':>10s}{'XGBoost %':>12s}")
     for mode in ('sensor_bias', 'corr_drift'):
         pp, xx = [], []
         for ne in ('50', '100', '150'):

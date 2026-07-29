@@ -39,7 +39,7 @@ from run_experiments import _kfold_split
 OUT = os.path.join(HERE, 'nested_cv_eq3.csv')
 N_EARLY, SEEDS, N_FOLDS = 100, [0, 1, 2], 5
 
-EQ3_CONST = 6.3000        # alpha*log(b0)+beta*log(d0)+gamma*c0 tai tanh=0
+EQ3_CONST = 6.3000        # alpha*log(b0)+beta*log(d0)+gamma*c0 at tanh=0
 NEUTRAL_RATIO = 0.845     # neutral / median over the whole dataset
 DMAX_RATIO = 1.8          # delta_max / median
 NMAX_RATIO = 1.49         # N_max / max

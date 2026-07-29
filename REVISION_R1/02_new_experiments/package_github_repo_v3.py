@@ -40,7 +40,7 @@ CORE_EXP = ['run_experiments.py', 'sensitivity_eq3.py', 'nasa_finetune.py',
             # REQUIRED: sensitivity_eq3/nasa_finetune import severson_only;
             # lambda_sensitivity is cited by REPRODUCE.md and by the Response (Table S6)
             'severson_only.py', 'lambda_sensitivity.py']
-CORE_ANA = ['uncertainty.py']   # train.py + run_experiments.py import module nay
+CORE_ANA = ['uncertainty.py']   # train.py + run_experiments.py import this module
 SCRIPTS = [
     'rerun_exp1_fixed.py', 'classical_log_w100.py', 'recompute_stats_for_manuscript.py',
     'ablation_architecture.py', 'repeated_cv_architecture.py', 'variance_ratio_20rep.py',

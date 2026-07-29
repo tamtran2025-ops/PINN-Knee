@@ -178,9 +178,9 @@ def run_one(model_name, n_early, seed, tr, cal, te):
 def load_paper_pool():
     """Reproduce exactly the 117-cell pool used in the submission.
 
-    load_all_cells_with_knees() additionally filters on has_knee_point -> chi con 113,
-    and yields 113/110/105 instead of 117/113/108, a consequence of the loader
-    the original "Paper 7" source is missing, so the code falls back to the cache branch.
+    load_all_cells_with_knees() additionally filters on has_knee_point, leaving only 113 cells,
+    and yields 113/110/105 instead of 117/113/108. That happens because the original
+    "Paper 7" loader is missing, so the code falls back to the cache branch.
 
     Verified: filtering only on knee_cycle is not None gives 117 cells, and
     build_feature_matrix returns exactly 117/113/108, as implied by the column
