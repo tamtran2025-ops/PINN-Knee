@@ -29,6 +29,19 @@ log-target protocol for all 14 models**:
   Differences within the top cluster (PINN-Knee, PINN-UQ, Gaussian Process, Random
   Forest) are **not statistically significant** (overlapping BCa intervals; we do not
   claim uniform dominance).
+- **Six baselines did not fit the data.** LSTM, GRU, Bayesian LSTM, Transformer,
+  Informer and PatchTST emit **a single constant for every test cell in every run**
+  (within-run prediction SD never above 0.01 cycles, |r| with the label below 0.01),
+  and land **58 to 110 cycles worse than the optimal constant predictor**. The cause is
+  our own protocol: every baseline receives the same 24-feature vector, which those
+  architectures consume as a 24-step sequence with no temporal ordering to exploit.
+  They therefore mark a **floor, not a competitive comparison**, and every significance
+  result against them is a floor check. Removing them, the Friedman omnibus falls from
+  chi2 = 53.0-59.7 to **9.60 (p = 0.21), 13.13 (p = 0.069) and 19.40 (p = 0.007)**, so it
+  rejects only at n_early = 150. PINN-Knee's mean rank is unchanged (3.60 / 2.60 / 1.80).
+  Reproduce with `baseline_collapse_diagnostic.py` and `friedman_learners_only.py`;
+  both refuse to print results unless they first reproduce the published Table 1 and
+  chi-square values.
 - **Architecture value:** over a 20-repeat 5-fold CV the physics-structured architecture
   beats a parameter-matched MLP by a mean of **8.40 cycles** (74/100 folds). We report
   **both** tests: paired t p = 1.3e-4 and Wilcoxon p < 1e-4 (supported by a
@@ -67,6 +80,8 @@ unchanged after a clone (no path editing required).
 │   ├── rerun_exp1_fixed.py           # Table 1: 630-run benchmark (broadcast bug fixed)
 │   ├── classical_log_w100.py         # Table 1: classical baselines under the log target
 │   ├── recompute_stats_for_manuscript.py  # Tables 1, 2, 3 and S1, S2, S5, S8
+│   ├── baseline_collapse_diagnostic.py    # Table S13: which baselines actually fitted the data
+│   ├── friedman_learners_only.py     # Friedman omnibus with the collapsed baselines removed
 │   ├── ablation_architecture.py      # Architecture ablation (full / arch-only / physics-only / matched MLP)
 │   ├── repeated_cv_architecture.py   # 5x repeated 5-fold CV of the ablation
 │   ├── variance_ratio_20rep.py       # 20-repeat CV: architecture vs matched MLP (+8.40 cycles)
