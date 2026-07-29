@@ -31,7 +31,7 @@ DET = [('bacon_watts', 'Bacon-Watts', '#D55E00', 'v'),
 def figure_s1():
     cells = pickle.load(open(CACHE, 'rb'))
     cells = [c for c in cells if c.get('knee_cycle')]
-    # 6 cell dai dien trai deu pho tuoi tho (ngan -> dai)
+    # six representative cells spanning the lifespan range, short to long
     cells_sorted = sorted(cells, key=lambda c: c['knee_cycle'])
     idx = np.linspace(0, len(cells_sorted) - 1, 6).astype(int)
     pick = [cells_sorted[i] for i in idx]
@@ -81,7 +81,7 @@ def figure_s1():
 def figure_s2():
     pc = os.path.join(HERE, 'r2_3_bounds_percell.csv')
     if not os.path.exists(pc):
-        print("  S2: CHUA co r2_3_bounds_percell.csv, bo qua")
+        print("  S2: missing r2_3_bounds_percell.csv, skipped")
         return None
     d = pd.read_csv(pc)
     names = {'a': 'a  (normalised initial capacity)',
@@ -89,7 +89,7 @@ def figure_s2():
              'c': 'c  (post-knee drop amplitude)',
              'd': 'd  (post-knee decay rate)',
              's': 's  (knee sharpness)'}
-    # bien cung tu models.py _physics_forward
+    # same transform as models.py _physics_forward
     bounds = {'a': (0.7, 1.1), 'b': (np.exp(-7.5), np.exp(-4.5)),
               'c': (0.05, 0.25), 'd': (np.exp(-6.0), np.exp(-3.0)),
               's': (1.0, 4.0)}
@@ -138,6 +138,6 @@ def figure_s2():
 
 
 if __name__ == '__main__':
-    print("Dung Supplementary figures:")
+    print("Built the supplementary figures:")
     figure_s1()
     figure_s2()

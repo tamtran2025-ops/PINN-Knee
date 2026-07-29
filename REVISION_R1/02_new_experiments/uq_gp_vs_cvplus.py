@@ -61,10 +61,10 @@ def gp_intervals():
 
 
 def main():
-    print("Dang do khoang tin cay cua Gaussian Process ...\n")
+    print("Measuring the Gaussian Process intervals ...\n")
     g = gp_intervals()
 
-    # ---- DOI CHUNG ----
+    # ---- Control ----
     ctrl = g[g.nominal == 0.90].groupby('n_early')['MAE'].mean().round(1)
     print("Control: the GP MAE must match Table 1")
     ok = True
@@ -81,7 +81,7 @@ def main():
     cvg = cv.groupby('n_early').agg(PICP=('PICP', 'mean'), MPIW=('MPIW', 'mean'))
 
     print("\n" + "=" * 78)
-    print("COVERAGE THUC NGHIEM (PICP) va DO RONG KHOANG (MPIW, cycles)")
+    print("EMPIRICAL COVERAGE (PICP) and INTERVAL WIDTH (MPIW, cycles)")
     print("=" * 78)
     print(f"{'n_early':>8}{'method':>34}{'nominal level':>16}{'PICP':>9}{'MPIW':>9}")
     print("-" * 78)
@@ -92,15 +92,15 @@ def main():
             print(f"{ne:>8}{'Gaussian Process (Bayes)':>34}{nominal:>16.0%}"
                   f"{s.PICP.mean():>9.3f}{s.MPIW.mean():>9.0f}{flag}")
         r = cvg.loc[ne]
-        print(f"{ne:>8}{'PINN-Knee + CV+ conformal':>34}{'>= 90% (bao dam)':>16}"
+        print(f"{ne:>8}{'PINN-Knee + CV+ conformal':>34}{'>= 90% (guarantee)':>16}"
               f"{r.PICP:>9.3f}{r.MPIW:>9.0f}")
         print()
 
     g.to_csv(os.path.join(HERE, 'uq_gp_vs_cvplus.csv'), index=False)
-    print(f"Da ghi: uq_gp_vs_cvplus.csv")
+    print(f"Wrote: uq_gp_vs_cvplus.csv")
 
     print("\n" + "=" * 78)
-    print("TOM TAT")
+    print("SUMMARY")
     print("=" * 78)
     for nominal in (0.90, 0.95):
         sub = g[g.nominal == nominal]
@@ -109,7 +109,7 @@ def main():
         print(f"  GP at the {nominal:.0%} level: under-covers at {len(under)}/3 budgets"
               + (f" (n_early={under})" if under else ""))
     print(f"  CV+ : dat {cvg.PICP.min():.3f} den {cvg.PICP.max():.3f}, "
-          f"deu vuot bao dam >= 0.90 o ca 3 muc")
+          f"all exceed guarantee >= 0.90 at all three budgets")
 
 
 if __name__ == '__main__':

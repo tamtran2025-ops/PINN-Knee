@@ -30,8 +30,8 @@ from ablation_architecture import MatchedMLP, train_plain
 
 OUT_CSV = os.path.join(HERE, 'repeated_cv_architecture.csv')
 N_EARLY = 100
-SPLIT_SEEDS = [42, 43, 44, 45, 46]      # 5 lan lap
-MODEL_SEEDS = [0, 1]                    # 2 seed khoi tao moi fold
+SPLIT_SEEDS = [42, 43, 44, 45, 46]      # 5 repetitions
+MODEL_SEEDS = [0, 1]                    # 2 initialisation seeds per fold
 N_FOLDS = 5
 ZERO_LAMBDA = {k: 0.0 for k in PHYSICS_LAMBDA}
 
@@ -121,9 +121,9 @@ def main():
     # verify the fold partition before running
     sp = kfold_split_all(cells, N_FOLDS, 42)
     seen = [c['name'] for _, _, te in sp for c in te]
-    assert len(seen) == len(cells) == len(set(seen)), "bo chia fold SAI"
+    assert len(seen) == len(cells) == len(set(seen)), "fold partition is WRONG"
     print(f"Split check: {len(seen)} cells, each tested exactly once  OK")
-    print(f"Kich thuoc test moi fold: {[len(te) for _, _, te in sp]}\n")
+    print(f"Test size per fold: {[len(te) for _, _, te in sp]}\n")
 
     done = set()
     if os.path.exists(OUT_CSV):
@@ -143,7 +143,7 @@ def main():
                 try:
                     r = one_cell(rs, fold, ms, tr, cal, te)
                 except Exception as e:
-                    print(f"  [{i}/{total}] rs={rs} f={fold} ms={ms} LOI: {str(e)[:60]}")
+                    print(f"  [{i}/{total}] rs={rs} f={fold} ms={ms} ERROR: {str(e)[:60]}")
                     continue
                 if r is None:
                     continue
@@ -159,7 +159,7 @@ def main():
                       f"arch={r['arch_only']:6.1f}  mlp={r['mlp_matched']:6.1f}  "
                       f"full={r['full']:6.1f}   ETA {eta:5.1f}p")
 
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} phut -> {OUT_CSV}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min -> {OUT_CSV}")
     print("Run repeated_cv_analysis.py for the statistical results.")
 
 

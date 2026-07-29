@@ -39,7 +39,7 @@ from ablation_architecture import MatchedMLP, train_plain
 
 OUT = os.path.join(HERE, 'variance_ratio_20rep.csv')
 N_EARLY, K, MODEL_SEED = 100, 5, 0
-SPLIT_SEEDS = list(range(100, 120))          # 20 lan lap, doc lap voi lan truoc
+SPLIT_SEEDS = list(range(100, 120))          # 20 repetitions, independent of the previous run
 ZERO_LAMBDA = {k: 0.0 for k in PHYSICS_LAMBDA}
 
 
@@ -82,8 +82,8 @@ def one_fold(seed, tr, cal, te):
 
 def main():
     cells = load_paper_pool()
-    print(f"Pool {len(cells)} cell | {len(SPLIT_SEEDS)} lan lap x {K} fold "
-          f"x 1 seed x 2 bien the = {len(SPLIT_SEEDS)*K*2} lan huan luyen\n")
+    print(f"Pool {len(cells)} cell | {len(SPLIT_SEEDS)} repetitions x {K} fold "
+          f"x 1 seed x 2 variants = {len(SPLIT_SEEDS)*K*2} training runs\n")
 
     done = set()
     if os.path.exists(OUT):
@@ -101,7 +101,7 @@ def main():
             try:
                 out = one_fold(MODEL_SEED, tr, cal, te)
             except Exception as e:
-                print(f"  [{i}/{total}] rs={rs} f={fold} LOI: {str(e)[:60]}")
+                print(f"  [{i}/{total}] rs={rs} f={fold} ERROR: {str(e)[:60]}")
                 continue
             if out is None:
                 continue
@@ -120,7 +120,7 @@ def main():
             print(f"  [{i:>3d}/{total}] rs={rs} f={fold}  arch={mae_arch:6.1f}  "
                   f"mlp={mae_mlp:6.1f}  diff={row['diff']:+7.1f}   ETA {eta:5.1f}p")
 
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} phut -> {OUT}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min -> {OUT}")
     print("Run variance_ratio_analysis.py for the conclusion.")
 
 

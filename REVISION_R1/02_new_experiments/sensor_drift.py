@@ -35,7 +35,7 @@ OUT = os.path.join(HERE, 'sensor_drift.csv')
 N_EARLY_LIST = [50, 100, 150]
 SEEDS = [0, 1, 2]
 BIAS = 0.05      # +5% systematic offset
-DRIFT = 0.02     # toi +2% drift tuyen tinh
+DRIFT = 0.02     # up to +2% linear drift
 
 
 def corrupt(cells, mode):
@@ -57,7 +57,7 @@ def corrupt(cells, mode):
 def fit_xgb(Xtr, ytr):
     from models import XGBoostKnee
     m = XGBoostKnee()
-    m.fit(Xtr, np.log1p(ytr))          # classical dung log (fair)
+    m.fit(Xtr, np.log1p(ytr))          # classical models use the log target, for fairness
     return m
 
 
@@ -66,7 +66,7 @@ def run(ne, seed, tr, cal, te):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
-    # --- train tren CLEAN ---
+    # --- train on CLEAN ---
     Xtr, ytr, _, _ = build_feature_matrix(tr, ne)
     Xc, yc, _, _ = build_feature_matrix(cal, ne)
     if Xtr.size == 0:
@@ -99,7 +99,7 @@ def run(ne, seed, tr, cal, te):
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117, f"pool {len(cells)} != 117"
     print(f"Pool {len(cells)} cell. bias=+{BIAS*100:.0f}%, drift=+{DRIFT*100:.0f}%\n", flush=True)
@@ -119,9 +119,9 @@ def main():
                         if new:
                             w.writeheader()
                         w.writerow(r)
-            print(f"  ne={ne} fold={fold} xong  ({time.time()-t0:.0f}s)", flush=True)
+            print(f"  ne={ne} fold={fold} done  ({time.time()-t0:.0f}s)", flush=True)
 
-    # ---- DOI CHUNG + tong hop ----
+    # ---- Control + summary ----
     import collections
     print("\n" + "=" * 66)
     print("  Control: the clean PINN MAE must match the Experiment 1 rerun (~159/140/117)")
@@ -147,7 +147,7 @@ def main():
                         pp.append((md[0]['MAE_PINN'] - cl[0]['MAE_PINN']) / cl[0]['MAE_PINN'] * 100)
                         xx.append((md[0]['MAE_XGB'] - cl[0]['MAE_XGB']) / cl[0]['MAE_XGB'] * 100)
         print(f"  {mode:<14s}{np.mean(pp):>9.1f}%{np.mean(xx):>11.1f}%")
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} phut", flush=True)
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min", flush=True)
 
 
 if __name__ == '__main__':

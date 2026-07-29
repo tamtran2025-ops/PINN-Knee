@@ -30,7 +30,7 @@ SEEDS = [0, 1, 2]
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     b12 = [c for c in cells if 'batch1' in c['name'] or 'batch2' in c['name']]
@@ -60,7 +60,7 @@ def main():
                 try:
                     r = run_one(mn, ne, seed, tr, cal, b3)
                 except Exception as e:
-                    print(f"  [{i}/{total}] {mn} ne={ne} s={seed} LOI: {str(e)[:60]}",
+                    print(f"  [{i}/{total}] {mn} ne={ne} s={seed} ERROR: {str(e)[:60]}",
                           flush=True)
                     continue
                 if r is None:
@@ -78,7 +78,7 @@ def main():
                 print(f"  [{i:>2d}/{total}] ne={ne:>3d} {mn:<16s} s={seed} "
                       f"MAE={r['MAE']:7.1f}  ETA {eta:5.1f}p", flush=True)
 
-    # tong ket
+    # summary
     rows = list(csv.DictReader(open(OUT, encoding='utf-8')))
     print("\n" + "=" * 64)
     print(f"  {'model':<16s}" + "".join(f"{f'ne={ne}':>12s}" for ne in NES))

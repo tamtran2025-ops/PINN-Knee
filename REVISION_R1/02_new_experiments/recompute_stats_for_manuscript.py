@@ -29,14 +29,14 @@ def load_rows():
     rows = []
     for r in nn:
         if r['model'] in CLASSICAL:
-            continue                      # classical LOG tu file rieng
+            continue                      # classical LOG models come from a separate file
         rows.append(r)
     rows += cl
     return rows, nn
 
 
 def cell_stats(rows):
-    """(model, ne) -> dict metric -> (mean, std) tren 15 do (5 fold x 3 seed)."""
+    """(model, ne) -> dict metric -> (mean, std) over the 15 measurements (5 folds x 3 seeds)."""
     agg = collections.defaultdict(lambda: collections.defaultdict(list))
     for r in rows:
         key = (r['model'], int(float(r['n_early'])))
@@ -51,7 +51,7 @@ def cell_stats(rows):
 
 
 def fold_series(rows, metric='MAE'):
-    """(model, ne) -> array 5 gia tri fold (trung binh 3 seed)."""
+    """(model, ne) -> array of 5 fold values, averaged over 3 seeds."""
     agg = collections.defaultdict(lambda: collections.defaultdict(list))
     for r in rows:
         key = (r['model'], int(float(r['n_early'])))
@@ -104,7 +104,7 @@ def main():
     # ============ 5.1.1 WILCOXON (mot phia, 5 fold) ============
     fs = fold_series(rows)
     print("\n" + "=" * 100)
-    print("5.1.1 WILCOXON one-sided (PINN tot hon), n=5 fold seed-averaged  (p; * <=0.05)")
+    print("5.1.1 WILCOXON one-sided (PINN better), n=5 fold seed-averaged  (p; * <=0.05)")
     print("=" * 100)
     RES['wilcoxon'] = {}
     for ne in NES:
@@ -114,7 +114,7 @@ def main():
             if m == 'PINN_Knee':
                 continue
             base = fs[(m, ne)]
-            d = base - pinn                       # >0 => PINN tot hon
+            d = base - pinn                       # >0 => PINN better
             try:
                 _, p = stats.wilcoxon(d, alternative='greater')
             except ValueError:
@@ -155,9 +155,9 @@ def main():
             'mean_rank': {m: round(float(mean_rank[i]), 2) for i, m in enumerate(models)},
             'nemenyi_vs_pinn': nem}
 
-    # ============ 5.1.3 TABLE 2: BCa tren 5 hieu fold ============
+    # ============ 5.1.3 TABLE 2: BCa over the 5 fold differences ============
     print("\n" + "=" * 100)
-    print("TABLE 2: BCa 95% CI tren Delta_MAE = MAE(PINN) - MAE(baseline), 5 fold")
+    print("TABLE 2: BCa 95% CI on Delta_MAE = MAE(PINN) - MAE(baseline), 5 fold")
     print("=" * 100)
     RES['table2'] = {}
     for m in models:
@@ -165,7 +165,7 @@ def main():
             continue
         line = f"{m:<16s}"
         for ne in NES:
-            d = fs[('PINN_Knee', ne)] - fs[(m, ne)]   # am => PINN tot hon
+            d = fs[('PINN_Knee', ne)] - fs[(m, ne)]   # am => PINN better
             lo, hi = bca_ci(d)
             sig = '*' if hi < 0 else ('t' if lo > 0 else 'ns')
             RES['table2'][f"{m}|{ne}"] = {'d': round(float(d.mean()), 1),
@@ -176,7 +176,7 @@ def main():
 
     # ============ 5.10: BCa over the 15 measurements per model ============
     print("\n" + "=" * 100)
-    print("5.10 BCa CI cua mean MAE (15 do)  -  top model + Pure_NN")
+    print("5.10 BCa CI of the mean MAE (15 measurements)  -  top model + Pure_NN")
     print("=" * 100)
     RES['bca_mean'] = {}
     per15 = collections.defaultdict(list)
@@ -214,15 +214,15 @@ def main():
             print(f"{cfg:<20s} MAE={mae:7.2f}")
             RES['table3'][cfg] = {'MAE': round(float(mae), 2)}
             continue
-        d = vals - fv                              # >0 => bo loss lam xau
-        # BCa tren 15 hieu (fold x seed)
+        d = vals - fv                              # >0 => removing the loss makes it worse
+        # BCa over the 15 differences (fold x seed)
         lo, hi = bca_ci(d, seed=2)
         sig = 'sig' if lo > 0 or hi < 0 else 'ns'
         print(f"{cfg:<20s} MAE={mae:7.2f}  dMAE={d.mean():+6.2f} [{lo:+6.2f},{hi:+6.2f}] {sig}")
         RES['table3'][cfg] = {'MAE': round(float(mae), 2), 'd': round(float(d.mean()), 2),
                               'lo': round(lo, 2), 'hi': round(hi, 2), 'sig': sig}
 
-    # ============ classical RAW (tham chieu supplementary) ============
+    # ============ classical RAW, reference for the supplementary ============
     print("\n" + "=" * 100)
     print("Classical baselines on the RAW target (from rerun_exp1_fixed), for reference only")
     print("=" * 100)
@@ -241,7 +241,7 @@ def main():
 
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(RES, f, indent=1)
-    print(f"\nLuu: {OUT}")
+    print(f"\nSaved: {OUT}")
 
 
 if __name__ == '__main__':

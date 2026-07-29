@@ -56,9 +56,9 @@ def main():
 
     Xtr, ytr, _, _ = build_feature_matrix(tr, NE)
     Xc, yc, _, _ = build_feature_matrix(cal, NE)
-    Xall, yall, _, _ = build_feature_matrix(cells, NE)      # TOAN BO pool
+    Xall, yall, _, _ = build_feature_matrix(cells, NE)      # the WHOLE pool
     Xtr_n, Xall_n, Xc_n, _ = normalize_features(Xtr, Xall, Xc)
-    print(f"forward tren {len(yall)} cell (ne={NE})", flush=True)
+    print(f"forward on {len(yall)} cell (ne={NE})", flush=True)
 
     np.random.seed(0); torch.manual_seed(0)
     m = create_model('PINN_Knee', n_features=Xtr_n.shape[1], device=DEVICE)
@@ -75,15 +75,15 @@ def main():
     nphys = nphys.cpu().numpy().ravel(); delta = delta.cpu().numpy().ravel()
     y = np.asarray(yall, float)
 
-    # ---------- DOI CHUNG ----------
+    # ---------- Control ----------
     dob = d / b
     print("\n=== Control: must match Section 5.5 ===")
-    print(f"  a = {a.mean():.3f}   (bai ~1.0)")
-    print(f"  b = {b.mean():.5f}  (bai ~0.005)")
-    print(f"  d = {d.mean():.5f}  (bai ~0.015)")
-    print(f"  s = {s.mean():.2f}     (bai ~3.5)")
-    print(f"  d/b median = {np.median(dob):.3f}  (bai 3.00)")
-    print(f"  %cell d>b  = {100*np.mean(d > b):.1f}%  (bai 100%)")
+    print(f"  a = {a.mean():.3f}   (paper ~1.0)")
+    print(f"  b = {b.mean():.5f}  (paper ~0.005)")
+    print(f"  d = {d.mean():.5f}  (paper ~0.015)")
+    print(f"  s = {s.mean():.2f}     (paper ~3.5)")
+    print(f"  d/b median = {np.median(dob):.3f}  (paper 3.00)")
+    print(f"  %cell d>b  = {100*np.mean(d > b):.1f}%  (paper 100%)")
     ok = (abs(np.median(dob) - 3.0) < 0.15 and np.mean(d > b) > 0.99
           and abs(a.mean() - 1.0) < 0.1)
     print(f"  {'OK, proceeding to plot' if ok else '*** MISMATCH: stopping, nothing plotted ***'}", flush=True)
@@ -140,7 +140,7 @@ def main():
     plt.close(fig)
     from PIL import Image
     w, h = Image.open(OUT).size
-    print(f"\nLuu {OUT}: {w}x{h} (AR={w/h:.3f}; goc 1.687)", flush=True)
+    print(f"\nSaved {OUT}: {w}x{h} (AR={w/h:.3f}; goc 1.687)", flush=True)
 
 
 if __name__ == '__main__':

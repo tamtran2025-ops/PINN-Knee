@@ -31,7 +31,7 @@ def main():
             "results/_severson_cache.pkl not found. This script needs the raw data, "
             "which are not redistributed in this repository. Place the .mat files as described "
             "in REPRODUCE.md section 1 and rerun; the cache is built on the first run. "
-            "Ma tran dac trung da trich san co tai features_n_early_50/100/150.csv."
+            "The extracted feature matrix is available at features_n_early_50/100/150.csv."
         )
     print(f"Pool: {len(cells)} cell")
     for ne in (50, 100, 150):
@@ -42,8 +42,8 @@ def main():
         df.insert(0, 'cell_name', used)
         out = os.path.join(HERE, f'features_n_early_{ne}.csv')
         df.to_csv(out, index=False)
-        print(f"  n_early={ne:>3}: {df.shape[0]} cell x {len(names)} dac trung -> "
-              f"{os.path.basename(out)}  (knee nho nhat {int(y.min())})")
+        print(f"  n_early={ne:>3}: {df.shape[0]} cell x {len(names)} features -> "
+              f"{os.path.basename(out)}  (smallest knee {int(y.min())})")
 
 
 if __name__ == '__main__':

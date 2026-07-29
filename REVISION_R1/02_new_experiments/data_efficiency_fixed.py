@@ -28,7 +28,7 @@ NE = 100
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     # split 60/20/20 seed 42 nhu ban goc (data_loader.get_train_cal_test_split)
@@ -68,7 +68,7 @@ def main():
             if mn == 'XGBoost':
                 ctrl[fr] = np.mean(v)
         print(line)
-    print("\n  DOI CHUNG XGBoost goc: 198.8 / 239.0 / 181.2 / 177.2")
+    print("\n  Control, original XGBoost: 198.8 / 239.0 / 181.2 / 177.2")
     print(f"  XGBoost moi          : " + " / ".join(f"{ctrl[f]:.1f}" for f in FRACS), flush=True)
 
 

@@ -52,12 +52,12 @@ ZERO_LAMBDA = {k: 0.0 for k in PHYSICS_LAMBDA}
 
 
 class MatchedMLP(nn.Module):
-    """MLP thng, KHP S THAM S vi PINN_Knee, khng c physics head.
+    """Plain MLP with a parameter count matched to PINN_Knee and no physics head.
 
     PINN_Knee (n_features=24, h=min(128,64)=64):
         physics_head 24->64->32->6 = 1600 + 2080 +  198 = 3878
         nn_head      24->64->32->1 = 1600 + 2080 +   33 = 3713
-        tong                                            = 7591
+        total                                           = 7591
 
     MatchedMLP(hidden=h): 25h + h^2/2 + h + 1
         h=64  -> 3713 parameters, about HALF, which would bias the comparison towards PINN_Knee
@@ -183,7 +183,7 @@ def main():
                     try:
                         r = run_variant(v, ne, seed, tr, cal, te)
                     except Exception as e:
-                        print(f"  [{i}/{total}] {v} ne={ne} f={fold} s={seed} LOI: {str(e)[:60]}")
+                        print(f"  [{i}/{total}] {v} ne={ne} f={fold} s={seed} ERROR: {str(e)[:60]}")
                         continue
                     if r is None:
                         continue
@@ -214,13 +214,13 @@ def main():
             line += f"{np.mean(vals):>8.1f}{np.std(vals):<3.0f}" if vals else f"{'-':>12s}"
         print(line + f"{npar:>10d}")
     print("""
-  CACH DOC:
+  HOW TO READ:
     full vs arch_only        do the five physics losses change accuracy?
     arch_only vs mlp_matched does the Residual Physics architecture itself help?
     physics_only             how far does Eq. (3) get on its own?
     constant_median          the floor; every variant must clearly beat it to mean anything.
 """)
-    print(f"Xong sau {(time.time()-t0)/60:.1f} phut -> {OUT_CSV}")
+    print(f"Done in {(time.time()-t0)/60:.1f} min -> {OUT_CSV}")
 
 
 if __name__ == '__main__':

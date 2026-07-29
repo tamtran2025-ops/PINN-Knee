@@ -49,7 +49,7 @@ def transformed(th):
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     splits = _kfold_split(cells, 5, seed=42)
@@ -71,13 +71,13 @@ def main():
                 m, _ = train_pinn_knee(m, Xtr_n, ytr, tr, ne,
                                        physics_lambda=dict(PHYSICS_LAMBDA), X_val=Xc_n,
                                        y_val=yc if yc.size else None, use_log_target=True)
-                th = raw_tanh(m, Xte_n)            # tanh tren TAP TEST
+                th = raw_tanh(m, Xte_n)            # tanh on the TEST set
                 a, b, c, d, s = transformed(th)
                 for j, nm in enumerate('abcds'):
                     agg[ne][nm].append(np.mean(np.abs(th[:, j]) > ACTIVE_THR) * 100)
                 for nm, v in zip('abcds', (a, b, c, d, s)):
                     vals[ne][nm].extend(v.tolist())
-        print(f"  ne={ne} xong", flush=True)
+        print(f"  ne={ne} done", flush=True)
 
     print("\n" + "=" * 66)
     print(f"  % CELL CO BOUND ACTIVE (|tanh|>{ACTIVE_THR})")
@@ -89,7 +89,7 @@ def main():
             line += f"{np.mean(agg[ne][nm]):>9.1f}%"
         print(line)
     overall = np.mean([np.mean(agg[ne][nm]) for ne in (50, 100, 150) for nm in 'abcds'])
-    print(f"\n  Trung binh moi param/ne: {overall:.1f}% active")
+    print(f"\n  Mean per parameter and budget: {overall:.1f}% active")
     print(f"  => {100-overall:.1f}% of samples have every bound INACTIVE (strictly interior)")
 
     print("\n" + "=" * 66)
@@ -107,7 +107,7 @@ def main():
             for nm in 'abcds':
                 for v in vals[ne][nm]:
                     w.writerow([ne, nm, v])
-    print(f"Da ghi per-cell: {OUT_PC}", flush=True)
+    print(f"Wrote per-cell: {OUT_PC}", flush=True)
 
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
         w = csv.writer(f)
@@ -116,7 +116,7 @@ def main():
             for nm in 'abcds':
                 w.writerow([ne, nm, round(np.mean(agg[ne][nm]), 2),
                             round(np.mean(vals[ne][nm]), 5)])
-    print(f"\nDa ghi {OUT}", flush=True)
+    print(f"\nWrote {OUT}", flush=True)
 
 
 if __name__ == '__main__':

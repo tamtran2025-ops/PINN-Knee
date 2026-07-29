@@ -40,7 +40,7 @@ OUT = os.path.join(HERE, 'nested_cv_eq3.csv')
 N_EARLY, SEEDS, N_FOLDS = 100, [0, 1, 2], 5
 
 EQ3_CONST = 6.3000        # alpha*log(b0)+beta*log(d0)+gamma*c0 tai tanh=0
-NEUTRAL_RATIO = 0.845     # neutral / median toan bo dataset
+NEUTRAL_RATIO = 0.845     # neutral / median over the whole dataset
 DMAX_RATIO = 1.8          # delta_max / median
 NMAX_RATIO = 1.49         # N_max / max
 
@@ -73,7 +73,7 @@ def run(variant, fold, seed, tr, cal, te):
         m.eq3_delta = d
         m._delta_scale = dmax
         m.max_cycle = nmax
-    # variant == 'leaky' -> giu nguyen (-0.4, 800, 2500) cua bai
+    # variant == 'leaky' -> keep (-0.4, 800, 2500) in the paper
 
     m, _ = train_pinn_knee(m, Xtr_n, ytr, tr, N_EARLY,
                            physics_lambda=dict(PHYSICS_LAMBDA), X_val=Xc_n,
@@ -96,16 +96,16 @@ def main():
 
     # --- self-consistency check, before running anything else ---
     cells = load_paper_pool()
-    assert len(cells) == 117, f"Mong doi 117 cell, nhan {len(cells)}"   # muc R4
+    assert len(cells) == 117, f"Expected 117 cells, got {len(cells)}"   # step R4
     y_all = np.array([c['knee_cycle'] for c in cells], float)
     d, dmax, nmax = leakfree_params(y_all)
     print(f"\nSelf-consistency check (feeding all labels must return the published values):")
-    print(f"  delta     : {d:+.4f}   (bai: -0.4000)   "
-          f"{'OK' if abs(d + 0.4) < 0.02 else '*** LECH ***'}")
-    print(f"  delta_max : {dmax:.1f}   (bai: 800.0)     "
-          f"{'OK' if abs(dmax - 800) < 40 else '*** LECH ***'}")
-    print(f"  N_max     : {nmax:.1f}  (bai: 2500.0)    "
-          f"{'OK' if abs(nmax - 2500) < 60 else '*** LECH ***'}")
+    print(f"  delta     : {d:+.4f}   (paper: -0.4000)   "
+          f"{'OK' if abs(d + 0.4) < 0.02 else '*** MISMATCH ***'}")
+    print(f"  delta_max : {dmax:.1f}   (paper: 800.0)     "
+          f"{'OK' if abs(dmax - 800) < 40 else '*** MISMATCH ***'}")
+    print(f"  N_max     : {nmax:.1f}  (paper: 2500.0)    "
+          f"{'OK' if abs(nmax - 2500) < 60 else '*** MISMATCH ***'}")
     if abs(d + 0.4) >= 0.02:
         print("\n  SELF-CONSISTENCY CHECK FAILED: the rule is wrong. Stopping.")
         return
@@ -129,7 +129,7 @@ def main():
                     r = run(variant, fold, seed, tr, cal, te)
                 except Exception as e:
                     print(f"  [{i}/{total}] {variant} f={fold} s={seed} "
-                          f"LOI: {str(e)[:60]}", flush=True)
+                          f"ERROR: {str(e)[:60]}", flush=True)
                     continue
                 if r is None:
                     continue
@@ -144,7 +144,7 @@ def main():
                       f"delta={r['eq3_delta']:+.3f} dmax={r['delta_max']:6.1f} "
                       f"MAE={r['MAE']:7.1f}   ETA {eta:4.1f}p", flush=True)
 
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} phut", flush=True)
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min", flush=True)
 
 
 if __name__ == '__main__':

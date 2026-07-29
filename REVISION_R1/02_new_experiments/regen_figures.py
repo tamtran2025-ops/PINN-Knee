@@ -60,7 +60,7 @@ ROWS = load_merged()
 
 
 def cellstat(ne):
-    """model -> (mean_MAE, std_MAE) tren 15 do."""
+    """model -> (mean_MAE, std_MAE) over the 15 measurements."""
     agg = collections.defaultdict(list)
     for r in ROWS:
         if int(float(r['n_early'])) == ne:
@@ -69,7 +69,7 @@ def cellstat(ne):
 
 
 def fold_matrix(ne):
-    """DataFrame (5 fold x 14 model) MAE trung binh theo seed."""
+    """DataFrame (5 fold x 14 model) MAE averaged over seeds."""
     d = collections.defaultdict(lambda: collections.defaultdict(list))
     for r in ROWS:
         if int(float(r['n_early'])) == ne:
@@ -90,8 +90,8 @@ def fig1():
     panel = ['(a) ', '(b) ', '(c) ']
     for pi, (ax, ne) in enumerate(zip(axes, NES)):
         st = cellstat(ne)
-        order = sorted(st, key=lambda m: st[m][0])       # tang dan MAE
-        y = np.arange(len(order))[::-1]                  # tot nhat o TREN
+        order = sorted(st, key=lambda m: st[m][0])       # ascending MAE
+        y = np.arange(len(order))[::-1]                  # best on TOP
         means = [st[m][0] for m in order]
         stds = [st[m][1] for m in order]
         cols = [COLORS[m] for m in order]
@@ -110,7 +110,7 @@ def fig1():
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, 'image1.png'), dpi=200, bbox_inches='tight')
     plt.close(fig)
-    print("[Fig1] xong", flush=True)
+    print("[Fig1] done", flush=True)
 
 
 # ===================== FIG 2-4: CD diagrams =====================
@@ -157,7 +157,7 @@ def fig5():
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, 'image5.png'), dpi=200, bbox_inches='tight')
     plt.close(fig)
-    print("[Fig5] xong", flush=True)
+    print("[Fig5] done", flush=True)
 
 
 # ===================== FIG 8: data efficiency =====================
@@ -183,7 +183,7 @@ def fig8():
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, 'image8.png'), dpi=200, bbox_inches='tight')
     plt.close(fig)
-    print("[Fig8] xong", flush=True)
+    print("[Fig8] done", flush=True)
 
 
 # ===================== FIG 12: per-fold boxplot =====================
@@ -212,7 +212,7 @@ def fig12():
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, 'image13.png'), dpi=200, bbox_inches='tight')
     plt.close(fig)
-    print("[Fig12] xong", flush=True)
+    print("[Fig12] done", flush=True)
 
 
 if __name__ == '__main__':

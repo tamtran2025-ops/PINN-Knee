@@ -33,15 +33,15 @@ def nadeau_bengio(diff, n_train, n_test, alpha=0.05):
 
 def main():
     if not os.path.exists(CSV_PATH):
-        print("Chua co du lieu:", CSV_PATH)
+        print("No data yet:", CSV_PATH)
         return
     rows = list(csv.DictReader(open(CSV_PATH, encoding='utf-8')))
-    print(f"Du lieu: {len(rows)} diem thiet ke "
-          f"({len({r['split_seed'] for r in rows})} lan lap x "
+    print(f"Data: {len(rows)} design points "
+          f"({len({r['split_seed'] for r in rows})} repetitions x "
           f"{len({r['fold'] for r in rows})} fold x "
           f"{len({r['model_seed'] for r in rows})} seed)\n")
 
-    # Gop theo (lan lap, fold)  -  trung binh qua model seed
+    # Grouped by (repetition, fold)  -  averaged over model seeds
     byfold = collections.defaultdict(dict)
     for r in rows:
         k = (r['split_seed'], r['fold'])
@@ -53,7 +53,7 @@ def main():
 
     ntr = np.mean([float(r['n_train']) for r in rows])
     nte = np.mean([float(r['n_test']) for r in rows])
-    print(f"n = {n} quan sat muc fold   (n_train~{ntr:.0f}, n_test~{nte:.0f})\n")
+    print(f"n = {n} observed muc fold   (n_train~{ntr:.0f}, n_test~{nte:.0f})\n")
 
     print(f"  {'variant':<18s}{'MAE':>10s}{'std':>9s}")
     print("  " + "-" * 37)
@@ -61,19 +61,19 @@ def main():
         print(f"  {v:<18s}{agg[v].mean():>10.1f}{agg[v].std(ddof=1):>9.1f}")
 
     print("\n" + "=" * 78)
-    print("  SO SANH CAP DOI  (duong = ve trai tot hon)")
+    print("  PAIRED COMPARISON  (positive = left-hand side is better)")
     print("=" * 78)
     pairs = [
         ('arch_only', 'mlp_matched', 'Does the architecture help?'),
-        ('full', 'mlp_matched', 'model cua bai vs MLP thuong'),
+        ('full', 'mlp_matched', 'the published model vs a plain MLP'),
         ('arch_only', 'full', 'Do the five physics losses help?'),
         ('full', 'constant_median', 'vs SAN tam thuong'),
-        ('constant_median', 'physics_only', 'Eq.(3) don doc vs san'),
+        ('constant_median', 'physics_only', 'Eq. (3) alone vs the floor'),
     ]
     for a, b, note in pairs:
         d = agg[b] - agg[a]
         m, lo, hi, t, p = nadeau_bengio(d, ntr, nte)
-        # t-test thuong de doi chieu
+        # ordinary t-test for reference
         se_naive = np.std(d, ddof=1) / np.sqrt(n)
         tc = stats.t.ppf(0.975, n - 1)
         lo_n, hi_n = m - tc * se_naive, m + tc * se_naive
@@ -86,9 +86,9 @@ def main():
         verdict = ("SIGNIFICANT" if lo > 0 else
                    ("OPPOSITE SIGN" if hi < 0 else "INCONCLUSIVE"))
         print(f"\n  {a}  vs  {b}      [{note}]")
-        print(f"    chenh lech trung binh : {m:+.1f} cycles  "
+        print(f"    mean difference : {m:+.1f} cycles  "
               f"({m/agg[b].mean()*100:+.1f}%)")
-        print(f"    so fold thuan dau     : {int(np.sum(d > 0))}/{n}")
+        print(f"    folds with the expected sign     : {int(np.sum(d > 0))}/{n}")
         print(f"    Nadeau-Bengio 95% CI  : [{lo:+.1f}, {hi:+.1f}]   p = {p:.4f}"
               f"   -> {verdict}")
         print(f"    (t-test thuong  95%CI : [{lo_n:+.1f}, {hi_n:+.1f}]   p = {p_naive:.4f}"
@@ -96,7 +96,7 @@ def main():
         print(f"    (Wilcoxon hai phia    : p = {p_w:.4f})")
 
     print("\n" + "=" * 78)
-    print("  CACH DOC")
+    print("  HOW TO READ")
     print("=" * 78)
     print("""  Draw conclusions only from the Nadeau-Bengio column. If the interval contains 0, report
   "INCONCLUSIVE" must not be read as "no difference",

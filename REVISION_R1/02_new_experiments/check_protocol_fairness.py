@@ -56,7 +56,7 @@ def run(use_cal):
 
 def main():
     print("Running the classical baselines under both protocols (may take a few minutes)...\n")
-    a = run(use_cal=False)   # dung nhu Table 1 hien tai
+    a = run(use_cal=False)   # as in the current Table 1
     b = run(use_cal=True)    # fairer: the classical baselines also get the calibration split
     pinn = {50: (159.2,79,0.57), 100: (139.6,70,0.62), 150: (117.4,59,0.65)}  # Table 1
 
@@ -70,8 +70,8 @@ def main():
         print(f"{'':>8}{'PINN (Table 1)':>18}{pp[0]:>10.2f}{'':>12}{pp[1]:>14.1f}{100*pp[2]:>12.0f}%")
         bm=min(b[(ne,m)][0] for m in MODELS); bmed=min(b[(ne,m)][1] for m in MODELS)
         bw=max(b[(ne,m)][2] for m in MODELS)
-        print(f"{'':>8}{'classical tot nhat':>18}{'':>10}{bm:>12.2f}{bmed:>14.1f}{100*bw:>12.0f}%")
-        print(f"{'':>8}   PINN thang MAE: {pp[0]<bm}   MedAE: {pp[1]<bmed}   W100: {pp[2]>bw}")
+        print(f"{'':>8}{'best classical':>18}{'':>10}{bm:>12.2f}{bmed:>14.1f}{100*bw:>12.0f}%")
+        print(f"{'':>8}   PINN wins on MAE: {pp[0]<bm}   MedAE: {pp[1]<bmed}   W100: {pp[2]>bw}")
         print()
 
 

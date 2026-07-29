@@ -52,7 +52,7 @@ def run_outer_gp(ne, seed, tr_cells, te_cells):
         mask = np.ones(n_tr, dtype=bool)
         mask[idx] = False
         m = create_model('GaussianProcess')
-        m.fit(Xtr_n[mask], np.log1p(ytr[mask]))          # cung log-target
+        m.fit(Xtr_n[mask], np.log1p(ytr[mask]))          # same log target
         resid[idx] = np.abs(ytr[idx] - np.expm1(m.predict(Xtr_n[idx])))
         mu_test_per_k[k] = np.expm1(m.predict(Xte_n))
 
@@ -76,13 +76,13 @@ def main():
                 if r:
                     r['fold'] = fold
                     rows.append(r)
-        print(f"  n_early={ne} xong", flush=True)
+        print(f"  n_early={ne} done", flush=True)
     g = pd.DataFrame(rows)
     g.to_csv(os.path.join(HERE, 'uq_gp_cvplus.csv'), index=False)
 
     agg = g.groupby('n_early').agg(PICP=('PICP', 'mean'), MPIW=('MPIW', 'mean'),
                                    MAE=('MAE', 'mean'))
-    print("\nDOI CHUNG MAE (tham chieu Table 1: 162.5 / 147.7 / 116.4;")
+    print("\nControl MAE (reference, Table 1: 162.5 / 147.7 / 116.4;")
     print("  note: GP+CV+ fits on tr+cal, so its MAE may be lower; this is expected)")
     for ne in (50, 100, 150):
         print(f"   n_early={ne:>3}: MAE={agg.loc[ne, 'MAE']:.1f}")
@@ -92,7 +92,7 @@ def main():
     mc = pd.read_csv(os.path.join(HERE, 'uq_matched_coverage.csv')).set_index('n_early')
 
     print("\n" + "=" * 84)
-    print("BON O: coverage va do rong khoang")
+    print("FOUR CELLS: coverage and interval width")
     print("=" * 84)
     print(f"{'n_early':>8}{'method':>26}{'PICP':>9}{'MPIW':>9}{'vs PINN+CV+':>20}")
     print("-" * 84)

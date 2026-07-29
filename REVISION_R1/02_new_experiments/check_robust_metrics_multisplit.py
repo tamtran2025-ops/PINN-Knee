@@ -106,7 +106,7 @@ def main():
     if os.path.exists(OUT):
         for r in csv.DictReader(open(OUT, encoding='utf-8')):
             done.add((r['split_seed'], r['fold'], r['n_early'], r['model']))
-        print(f"Resume:  c {len(done)} lt kt qu trong CSV.\n")
+        print(f"Resume: {len(done)} results already in the CSV.\n")
 
     t0, idx = time.time(), len(done)
     for ss in SPLIT_SEEDS:
@@ -129,7 +129,7 @@ def main():
                         if idx % 10 == 0:
                             print(f"  [{idx:>3d}/{total}] ss={ss} f={fold} ne={ne:<3d} m={m_name:<15s} MAE={res['MAE']:>6.2f} MedianAE={res['MedianAE']:>6.2f}")
 
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} pht -> {OUT}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} pht -> {OUT}")
 
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@ under-coverage in another.
 Two stratifications are reported: by the true knee, and by the predicted value, the
 latter being the one available at deployment time. Exact conditional coverage is not
 attainable without further assumptions (Barber et al., 2021, Section 4), so an even
-split across groups is reported as a strength and an uneven one is reported plainly
+split across groups is reported as a songth and an uneven one is reported plainly
 rather than hidden.
 """
 import os, sys, csv
@@ -36,8 +36,8 @@ def load():
 
 
 def report(tag, y, lo, hi, strat, labels):
-    print(f"\n  --- phan tang theo {tag} ---")
-    print(f"    {'nhom':<22s}{'n':>5s}{'PICP':>9s}{'MPIW':>10s}{'knee TB':>10s}")
+    print(f"\n  --- stratified by {tag} ---")
+    print(f"    {'group':<22s}{'n':>5s}{'PICP':>9s}{'MPIW':>10s}{'knee TB':>10s}")
     picps = []
     for k, lab in enumerate(labels):
         m = strat == k
@@ -48,7 +48,7 @@ def report(tag, y, lo, hi, strat, labels):
         picps.append(p)
         print(f"    {lab:<22s}{int(m.sum()):>5d}{p:>9.3f}{w:>10.0f}{y[m].mean():>10.0f}")
     if picps:
-        print(f"    -> do lech PICP lon nhat giua cac tang: "
+        print(f"    -> largest PICP by a factor of across strata: "
               f"{max(picps)-min(picps):.3f}")
     return picps
 
@@ -58,8 +58,8 @@ def main():
     if data is None:
         return
     print("=" * 72)
-    print(f"  COVERAGE PHAN TANG  -  CV+ (alpha={ALPHA}, muc tieu {1-ALPHA:.2f},")
-    print(f"  bao dam ly thuyet >= {1-2*ALPHA:.2f})")
+    print(f"  STRATIFIED COVERAGE  -  CV+ (alpha={ALPHA}, target {1-ALPHA:.2f},")
+    print(f"  theoretical guarantee >= {1-2*ALPHA:.2f})")
     print("=" * 72)
 
     for ne in ('50', '100', '150'):
@@ -71,14 +71,14 @@ def main():
         lo = np.concatenate([d[4] for d in sub])
         hi = np.concatenate([d[5] for d in sub])
         cover = float(np.mean((y >= lo) & (y <= hi)))
-        print(f"\n{'='*72}\n  n_early = {ne}   (n={len(y)} cell-lan-du-doan)")
+        print(f"\n{'='*72}\n  n_early = {ne}   (n={len(y)} cell predictions)")
         print(f"  PICP marginal = {cover:.3f}   MPIW = {np.mean(hi-lo):.0f}")
 
-        # tercile theo TUOI THO THAT
+        # terciles of the TRUE lifespan
         q = np.quantile(y, [1/3, 2/3])
         strat = np.digitize(y, q)
-        report("tuoi tho THAT (dung nhan)", y, lo, hi, strat,
-               ["doi ngan (1/3 duoi)", "doi trung binh", "doi dai (1/3 tren)"])
+        report("TRUE lifespan (labels used)", y, lo, hi, strat,
+               ["short-lived (bottom third)", "medium-lived", "long-lived (top third)"])
 
         # terciles of the PREDICTED value, which is what is available at deployment time
         qp = np.quantile(p, [1/3, 2/3])
@@ -88,11 +88,11 @@ def main():
 
     print("""
 =======================================================================
-  CACH DOC
+  HOW TO READ
 =======================================================================
-  Conformal chi bao dam MARGINAL coverage. Conditional coverage la
+  Conformal only guarantees MARGINAL coverage. Conditional coverage la
   is not attainable without further assumptions (Barber et al., 2021, Section 4);
-  Vovk 2012; Lei & Wasserman 2014). Vi vay:
+  Vovk 2012; Lei & Wasserman 2014). Therefore:
 
   - If the spread across strata is below about 0.05, report it plainly, citing the known
     a theoretical limit. Reporting it plainly is the complete and honest answer.

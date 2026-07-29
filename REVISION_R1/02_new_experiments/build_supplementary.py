@@ -299,7 +299,7 @@ for st in ('all', 'short', 'medium', 'long'):
 table(["Stratum", "log MAE", "log RMSE", "log MedAE", "raw MAE", "raw RMSE", "raw MedAE"],
       rows, bold_first_col=True)
 
-# ---------- Table S10: chat luong khoang tin cay (UQ) ----------
+# ---------- Table S10: interval quality (UQ) ----------
 import pandas as _pd
 _cv = _pd.read_csv(os.path.join(HERE, 'cvplus_conformal.csv')).groupby('n_early').agg(
     PICP=('PICP', 'mean'), MPIW=('MPIW', 'mean'))
@@ -461,5 +461,5 @@ else:
     print("  WARNING: FigureS2 missing. Run build_supp_figures.py first.")
 
 doc.save(OUT)
-print(f"Luu: {OUT}")
+print(f"Saved: {OUT}")
 print(f"Tables: {len(doc.tables)} (S1-S12) | Figures: {sum(1 for r in doc.part.rels.values() if 'image' in r.reltype)}")

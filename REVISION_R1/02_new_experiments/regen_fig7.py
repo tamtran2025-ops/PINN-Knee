@@ -68,4 +68,4 @@ fig.savefig(OUT, dpi=200, bbox_inches='tight')
 plt.close(fig)
 from PIL import Image
 w, h = Image.open(OUT).size
-print(f"Luu {OUT}: {w}x{h} (AR={w/h:.3f}; goc 1.966)")
+print(f"Saved {OUT}: {w}x{h} (AR={w/h:.3f}; original 1.966)")

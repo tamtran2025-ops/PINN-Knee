@@ -50,7 +50,7 @@ def cvplus_interval(mu_test_per_k, resid, inner_of, alpha=ALPHA):
 
     mu_test_per_k : (K, n_test)  prediction of the k-th model on the test set
     resid         : (n_train,)   out-of-fold residual for each training point
-    inner_of      : (n_train,)   diem i thuoc inner fold nao
+    inner_of      : (n_train,)   which inner fold point i belongs to
     """
     n_tr = len(resid)
     n_te = mu_test_per_k.shape[1]
@@ -91,7 +91,7 @@ def run_outer(ne, seed, tr_cells, te_cells):
     mu_test_per_k = np.empty((K_INNER, len(yte)))
 
     # one training run per inner fold, serving both purposes:
-    #   (a) residual out-of-fold tren chinh inner fold do
+    #   (a) out-of-fold residual on that inner fold
     #   (b) predicting on the test set, which the CV+ formula needs
     for k, idx in enumerate(inner_folds):
         mask = np.ones(n_tr, dtype=bool); mask[idx] = False
@@ -128,7 +128,7 @@ def run_outer(ne, seed, tr_cells, te_cells):
 def main():
     cells = load_paper_pool()
     print(f"Pool: {len(cells)} cell   K_inner={K_INNER}   alpha={ALPHA}")
-    print(f"Bao dam CV+: bao phu >= {1-2*ALPHA:.2f}  (Barber et al. 2021)\n")
+    print(f"CV+ guarantee: coverage >= {1-2*ALPHA:.2f}  (Barber et al. 2021)\n")
 
     done = set()
     if os.path.exists(OUT_CSV):
@@ -160,7 +160,7 @@ def main():
                 print(f"  [{i}/{total}] ne={ne} f={fold}  PICP={r['PICP']:.3f}  "
                       f"MPIW={r['MPIW']:7.1f}  MAE={r['MAE']:6.1f}   ETA {eta:5.1f}p")
 
-    print(f"\nXong sau {(time.time()-t0)/60:.1f} phut -> {OUT_CSV}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min -> {OUT_CSV}")
 
 
 if __name__ == '__main__':

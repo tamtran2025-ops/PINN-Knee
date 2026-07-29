@@ -65,9 +65,9 @@ def main():
              'loss_correction': loss_corr}
     tot = sum(terms.values())
     for k, v in terms.items():
-        print(f"   {k:<22} = {v:.6f}   ({100*v/tot:5.1f}% cua total)")
-    print(f"\n   -> physics {'LON HON' if 0.05*loss_phys > loss_data else 'NHO HON'} data "
-          f"gap {max(0.05*loss_phys, loss_data)/min(0.05*loss_phys, loss_data):.1f} lan")
+        print(f"   {k:<22} = {v:.6f}   ({100*v/tot:5.1f}% of total)")
+    print(f"\n   -> physics {'LARGER THAN' if 0.05*loss_phys > loss_data else 'SMALLER THAN'} data "
+          f"by a factor of {max(0.05*loss_phys, loss_data)/min(0.05*loss_phys, loss_data):.1f} lan")
     print("   => the physics losses are NOT neutralised by a too-small weight.")
 
     print()
@@ -78,15 +78,15 @@ def main():
         kp = knee_phys.cpu().numpy().ravel()
         dl = delta.cpu().numpy().ravel()
         pr = knee_raw.cpu().numpy().ravel()
-    for nm, v in (('knee_physics', kp), ('delta_NN', dl), ('du doan cuoi', pr)):
-        print(f"   {nm:<14} trung binh {v.mean():8.1f}   do lech {v.std():7.1f}   "
+    for nm, v in (('knee_physics', kp), ('delta_NN', dl), ('final prediction', pr)):
+        print(f"   {nm:<14} mean {v.mean():8.1f}   std {v.std():7.1f}   "
               f"he so bien thien {abs(v.std()/v.mean()):.3f}")
-    print(f"\n   nhan that: trung binh {ytr.mean():.1f}, do lech {ytr.std():.1f}")
+    print(f"\n   true labels: mean {ytr.mean():.1f}, std {ytr.std():.1f}")
     print()
     for nm, v in (('a', params['a']), ('b', params['b']), ('c', params['c']),
                   ('d', params['d']), ('s', params['s'])):
         vv = v.detach().cpu().numpy().ravel()
-        print(f"   tham so {nm}: trung binh {vv.mean():.5f}  do lech {vv.std():.5f}  "
+        print(f"   parameter {nm}: mean {vv.mean():.5f}  std {vv.std():.5f}  "
               f"he so bien thien {abs(vv.std()/vv.mean()):.4f}")
 
 

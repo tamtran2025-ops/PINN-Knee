@@ -85,7 +85,7 @@ def finetune(base, X_fit, y_fit, mode):
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     sev, tj = load_pools()
     assert len(sev) == 113
     rng = np.random.RandomState(42)
@@ -110,10 +110,10 @@ def main():
         bases.append(m)
     ens = np.mean([predict(m, X_te_n) for m in bases], axis=0)
     ens_mae = float(np.mean(np.abs(ens - y_te)))
-    print(f"[2/3] DOI CHUNG ensemble zero-shot = {ens_mae:.2f} (goc {REF_ZS} {TOL})",
+    print(f"[2/3] Control: zero-shot ensemble = {ens_mae:.2f} (goc {REF_ZS} {TOL})",
           flush=True)
     if abs(ens_mae - REF_ZS) > TOL:
-        print("*** LECH  -  DUNG ***", flush=True)
+        print("*** MISMATCH: STOPPING ***", flush=True)
         return
     print("  OK", flush=True)
 
@@ -154,7 +154,7 @@ def main():
         w.writeheader(); w.writerows(rows)
 
     print("\n" + "=" * 66)
-    print("  TONGJI v2 (lr=1e-2 x 300ep; trung binh 19 fold x 3 seed)")
+    print("  TONGJI v2 (lr=1e-2 x 300ep; mean over 19 folds x 3 seeds)")
     print("=" * 66)
     for k in ('zeroshot', 'const_1cell', 'from_scratch',
               'freeze_physics', 'freeze_nn', 'full'):
@@ -166,7 +166,7 @@ def main():
     pa = np.array([r['phys_after_full'] for r in rows], float)
     print(f"\n  CO CHE (cell fit): delta {db.mean():+.0f} -> {da.mean():+.0f} ; "
           f"physics {pb.mean():.0f} -> {pa.mean():.0f}")
-    print(f"  Xong {(time.time()-t0)/60:.1f} phut", flush=True)
+    print(f"  Done {(time.time()-t0)/60:.1f} min", flush=True)
 
 
 if __name__ == '__main__':

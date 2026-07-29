@@ -54,14 +54,14 @@ def make_pinn(nf, depth):
         ph, nh = build_heads(nf, depth)
         m.physics_head = ph.to(DEVICE)
         m.nn_head = nh.to(DEVICE)
-        with torch.no_grad():          # giu init gan zero cho nn_head cuoi (nhu goc)
+        with torch.no_grad():          # keep the final nn_head initialised near zero, as in the original
             m.nn_head[-1].weight.mul_(0.01)
             m.nn_head[-1].bias.zero_()
     return m
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     splits = _kfold_split(cells, 5, seed=42)
@@ -106,8 +106,8 @@ def main():
         mark = "  <- default" if r['depth'] == 2 else ""
         print(f"  {r['depth']:>6d}{r['n_params']:>10d}{r['MAE']:>9.1f}{r['MedianAE']:>10.1f}{mark}")
     d2 = [r['MAE'] for r in rows if r['depth'] == 2][0]
-    print(f"\n  DOI CHUNG: depth=2 MAE={d2:.1f} (PINN_Knee that ~139)")
-    print(f"  {'OK' if abs(d2-139) < 12 else '*** LECH  -  rebuild sai ***'}", flush=True)
+    print(f"\n  Control: depth=2 MAE={d2:.1f} (PINN_Knee that ~139)")
+    print(f"  {'OK' if abs(d2-139) < 12 else '*** MISMATCH  -  rebuild is wrong ***'}", flush=True)
 
 
 if __name__ == '__main__':

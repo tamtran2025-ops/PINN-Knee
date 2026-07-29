@@ -91,7 +91,7 @@ def main():
         good = abs(got - TABLE1[ne]) <= 2.0
         ok &= good
         print(f"   n_early={ne:>3}: A={got:>6.1f}   Table 1={TABLE1[ne]:>6.1f}   "
-              f"{'KHOP' if good else '>>> LECH <<<'}")
+              f"{'MATCH' if good else '>>> MISMATCH <<<'}")
     if not ok:
         print("\nWARNING: branch A does not reproduce Table 1. Read the results below with caution.")
 
@@ -107,13 +107,13 @@ def main():
     print("-" * 86)
     for ne in (50, 100, 150):
         nm, cm, cmed, cw = CLASSICAL_TRCAL[ne]
-        print(f"{ne:>8}{'PINN train tren tr (Table 1)':>34}"
+        print(f"{ne:>8}{'PINN trained on tr (Table 1)':>34}"
               f"{a[ne][0]:>9.2f}{a[ne][1]:>9.1f}{100*a[ne][2]:>7.0f}%")
-        print(f"{ne:>8}{'PINN train tren tr+cal':>34}"
+        print(f"{ne:>8}{'PINN trained on tr+cal':>34}"
               f"{b[ne][0]:>9.2f}{b[ne][1]:>9.1f}{100*b[ne][2]:>7.0f}%")
-        print(f"{ne:>8}{f'{nm} tren tr+cal':>34}{cm:>9.2f}{cmed:>9.1f}{100*cw:>7.0f}%")
+        print(f"{ne:>8}{f'{nm} on tr+cal':>34}{cm:>9.2f}{cmed:>9.1f}{100*cw:>7.0f}%")
         win = 'PINN' if b[ne][0] < cm else 'classical'
-        print(f"{'':>8}   -> thang MAE: {win}   (lech {abs(b[ne][0]-cm):.2f} cycles)")
+        print(f"{'':>8}   -> wins on MAE: {win}   (gap {abs(b[ne][0]-cm):.2f} cycles)")
         print()
 
     rows = []
@@ -122,7 +122,7 @@ def main():
                          pinn_tr_medae=a[ne][1], pinn_trcal_medae=b[ne][1],
                          classical_trcal=CLASSICAL_TRCAL[ne][1]))
     pd.DataFrame(rows).to_csv(os.path.join(HERE, 'check_protocol_pinn.csv'), index=False)
-    print("Da ghi: check_protocol_pinn.csv")
+    print("Wrote: check_protocol_pinn.csv")
 
 
 if __name__ == '__main__':

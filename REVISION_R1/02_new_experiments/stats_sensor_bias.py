@@ -26,12 +26,12 @@ def main():
     got = d.pinn_clean.mean()
     print(f"Control: clean PINN MAE = {got:.1f}  (Section 5.12.1: {REF_CLEAN})")
     if abs(got - REF_CLEAN) > 0.15:
-        sys.exit("DOI CHUNG THAT BAI.")
+        sys.exit("CONTROL FAILED.")
 
     rows = []
     for cond in ('bias', 'drift'):
         print("\n" + "=" * 76)
-        print(f"{cond.upper()}: xuong cap tuyet doi (MAE_{cond} - MAE_clean), 5 fold")
+        print(f"{cond.upper()}: absolute degradation (MAE_{cond} - MAE_clean), 5 fold")
         print("=" * 76)
         deg = {}
         for m in ('pinn', 'xgb', 'rf'):
@@ -53,8 +53,8 @@ def main():
                              diff=dd.mean(), wilcoxon_p=p, significant=bool(sig)))
 
     pd.DataFrame(rows).to_csv(os.path.join(HERE, 'stats_sensor_bias.csv'), index=False)
-    print("\nDa ghi stats_sensor_bias.csv")
-    print("\nKET LUAN: diem uoc luong cho thay PINN xuong cap nhieu hon duoi systematic")
+    print("\nWrote stats_sensor_bias.csv")
+    print("\nCONCLUSION: the point estimates show PINN degrading more under a systematic")
     print("bias, but with five folds and a large spread (XGBoost even improves on 2 of 5)")
     print("the contrast is not statistically resolvable. It must not be concluded that this")
     print("is a weakness specific to physics-informed models, nor that there is")

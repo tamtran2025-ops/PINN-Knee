@@ -52,35 +52,35 @@ def main():
             continue
         d = pd.read_csv(p)
         if not {'test_cells', 'y_true', 'y_pred'}.issubset(d.columns):
-            print(f"  bo qua (thieu cot per-cell): {fn}")
+            print(f"  skipped (per-cell columns missing): {fn}")
             continue
         frames.append(d[['model', 'n_early', 'y_true', 'y_pred']])
-        print(f"  doc {fn}: {len(d)} run, {d.model.nunique()} model")
+        print(f"  read {fn}: {len(d)} run, {d.model.nunique()} model")
 
     df = pd.concat(frames, ignore_index=True)
     res = per_run_metrics(df).sort_values(['n_early', 'MAE_full'])
 
     print("\n" + "=" * 92)
-    print("MAE tren TOAN BO test cell vs CHI cell pre-knee that su (n_knee > n_early)")
+    print("MAE on ALL test cells vs ONLY genuinely pre-knee cells (n_knee > n_early)")
     print("=" * 92)
     for ne in (50, 100, 150):
         sub = res[res.n_early == ne]
         if sub.empty:
             continue
         drop = sub.n_drop_mean.mean()
-        print(f"\n n_early = {ne}   (trung binh {drop:.2f} cell/run bi loai, "
-              f"tren ~{sub.n_test_mean.mean():.1f} cell test)")
+        print(f"\n n_early = {ne}   (mean {drop:.2f} cells dropped per run, "
+              f"on ~{sub.n_test_mean.mean():.1f} test cells)")
         print(f"   {'model':<18}{'MAE full':>11}{'MAE pre-knee':>14}{'delta':>9}")
         for _, r in sub.iterrows():
             print(f"   {r.model:<18}{r.MAE_full:>11.2f}{r.MAE_preknee:>14.2f}{r.delta:>+9.2f}")
 
     out = os.path.join(HERE, 'preknee_subset_eval.csv')
     res.to_csv(out, index=False)
-    print(f"\nDa ghi: {out}")
+    print(f"\nWrote: {out}")
 
     # internal control: the 'full' column must match Table 1
     chk = res[res.model == 'PINN_Knee'].set_index('n_early')['MAE_full'].round(1).to_dict()
-    print(f"\nKIEM CHUNG PINN_Knee MAE_full = {chk}  (Table 1: 50->159.2, 100->139.6, 150->117.4)")
+    print(f"\nCheck: PINN_Knee MAE_full = {chk}  (Table 1: 50->159.2, 100->139.6, 150->117.4)")
 
 
 if __name__ == '__main__':

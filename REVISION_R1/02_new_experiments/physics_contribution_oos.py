@@ -3,7 +3,7 @@
 The original analysis fitted on a subset but reported per-cell figures for all cells,
 so roughly 80% of the cells quoted were inside the training set. This version uses
 5-fold cross-validation, so every cell is evaluated exactly once out of sample, and
-reports the in-sample figure alongside it in the same run; a large gap between the two
+reports the in-sample figure alongside it in the same run; a large by a factor of between the two
 is direct evidence of overfitting.
 
 Thresholds recorded in advance: if the physics-only prediction beats a constant
@@ -36,7 +36,7 @@ N_EARLY, SEEDS, N_FOLDS = 100, [0, 1, 2], 5
 
 
 def extract(model, Xn):
-    """Tra ve (n_phys, delta)  -  ca hai deu shape (N,)."""
+    """Tra ve (n_phys, delta)  -  both of shape (N,)."""
     model.eval()
     with torch.no_grad():
         Xt = torch.tensor(Xn, dtype=torch.float32).to(DEVICE)
@@ -46,16 +46,16 @@ def extract(model, Xn):
 
 
 def main():
-    print(f"Ghi ket qua: {OUT}", flush=True)                       # R3
+    print(f"Writing results to: {OUT}", flush=True)                       # R3
     cells = load_paper_pool()
-    assert len(cells) == 117, f"Mong doi 117 cell, nhan {len(cells)}"   # R4
+    assert len(cells) == 117, f"Expected 117 cells, got {len(cells)}"   # R4
     print(f"Pool {len(cells)} cell, n_early={N_EARLY}, "
           f"{N_FOLDS} fold x {len(SEEDS)} seed\n", flush=True)
 
     splits = _kfold_split(cells, N_FOLDS, seed=42)
     rows, t0 = [], time.time()
     for fold, (tr, cal, te) in enumerate(splits):
-        tr_all = tr + cal                       # huan luyen tren train+cal
+        tr_all = tr + cal                       # train on train+cal
         for seed in SEEDS:
             np.random.seed(seed); torch.manual_seed(seed)
             if torch.cuda.is_available():
@@ -92,7 +92,7 @@ def main():
         w.writeheader(); w.writerows(rows)
     print(f"\nWrote {len(rows)} rows in {(time.time()-t0)/60:.1f} min", flush=True)
 
-    # ---------------- phan tich ----------------
+    # ---------------- analysis ----------------
     import collections
     print("\n" + "=" * 72)
     print("  IN-SAMPLE vs OUT-OF-SAMPLE")
@@ -114,11 +114,11 @@ def main():
                         mae_const=float(np.mean(np.abs(med - y))))
         d = res[tag]
         print(f"\n  [{tag}-sample]  n = {d['n']}")
-        print(f"    rho trung vi (|delta|/|pred|) : {d['rho_med']:5.1f}%")
+        print(f"    median rho (|delta|/|pred|) : {d['rho_med']:5.1f}%")
         print(f"    r(n_phys, knee that)          : {d['r']:+.3f}  (R2={d['r']**2:.3f})")
         print(f"    MAE n_phys                    : {d['mae_nph']:6.1f}")
         print(f"    MAE, full prediction          : {d['mae_pred']:6.1f}")
-        print(f"    MAE hang so median(y_train)   : {d['mae_const']:6.1f}")
+        print(f"    MAE, constant median(y_train)   : {d['mae_const']:6.1f}")
         v = "better than constant" if d['mae_nph'] < d['mae_const'] else "*** WORSE than constant ***"
         print(f"    -> n_phys {v} ({d['mae_nph']-d['mae_const']:+.1f})")
 
@@ -129,13 +129,13 @@ def main():
     print(f"  (1) chenh rho in/out = {drho:.1f} diem  -> "
           f"{'the ~89% claim survives' if drho < 3 else 'the ~89% claim must be revised'}")
     ok2 = res['out']['mae_nph'] < res['out']['mae_const']
-    print(f"  (2) n_phys out-of-sample {'thap' if ok2 else 'CAO'} hon hang so -> "
+    print(f"  (2) n_phys out-of-sample {'thap' if ok2 else 'CAO'} than the constant -> "
           f"{'the physics-only statement survives' if ok2 else 'the physics-only statement must go'}")
     print(f"  (3) r: in={res['in']['r']:+.3f} vs out={res['out']['r']:+.3f}  "
           f"(chenh {abs(res['in']['r']-res['out']['r']):.3f})")
-    print(f"\n  DOI CHUNG: in-sample MAE n_phys = {res['in']['mae_nph']:.1f}"
+    print(f"\n  Control: in-sample MAE of n_phys = {res['in']['mae_nph']:.1f}"
           f"  (ban da nop: 124.3)  "
-          f"{'OK' if abs(res['in']['mae_nph']-124.3) < 25 else '*** LECH > 25 ***'}")
+          f"{'OK' if abs(res['in']['mae_nph']-124.3) < 25 else '*** MISMATCH > 25 ***'}")
 
 
 if __name__ == '__main__':

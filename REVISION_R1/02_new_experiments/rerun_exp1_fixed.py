@@ -51,7 +51,7 @@ def train_nn_model_FIXED(model, X_tr, y_tr, X_val, y_val):
     """Corrected version of run_experiments.train_nn_model.
 
     The only difference from the original is .squeeze() before mse_loss,
-    o ca nhanh train lan nhanh validation.
+    in both the training and the validation branch.
     """
     X_t = torch.tensor(X_tr, dtype=torch.float32).to(DEVICE)
     y_t = torch.tensor(y_tr, dtype=torch.float32).to(DEVICE)
@@ -68,7 +68,7 @@ def train_nn_model_FIXED(model, X_tr, y_tr, X_val, y_val):
     for epoch in range(1, N_EPOCHS + 1):
         opt.zero_grad()
         pred = model(X_t)
-        loss = nn.functional.mse_loss(pred.squeeze(-1), y_t)      # <-- SUA H1
+        loss = nn.functional.mse_loss(pred.squeeze(-1), y_t)      # <-- H1 fix
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
         opt.step()
@@ -77,7 +77,7 @@ def train_nn_model_FIXED(model, X_tr, y_tr, X_val, y_val):
         if has_val:
             model.eval()
             with torch.no_grad():
-                vl = nn.functional.mse_loss(model(X_v).squeeze(-1), y_v).item()  # <-- SUA H1
+                vl = nn.functional.mse_loss(model(X_v).squeeze(-1), y_v).item()  # <-- H1 fix
             model.train()
         sch.step(vl)
 
@@ -178,13 +178,13 @@ def run_one(model_name, n_early, seed, tr, cal, te):
 def load_paper_pool():
     """Reproduce exactly the 117-cell pool used in the submission.
 
-    load_all_cells_with_knees() hien loc them has_knee_point -> chi con 113,
+    load_all_cells_with_knees() additionally filters on has_knee_point -> chi con 113,
     and yields 113/110/105 instead of 117/113/108, a consequence of the loader
     the original "Paper 7" source is missing, so the code falls back to the cache branch.
 
     Verified: filtering only on knee_cycle is not None gives 117 cells, and
     build_feature_matrix returns exactly 117/113/108, as implied by the column
-    n_train+n_cal+n_test cua all_experiments.csv.
+    n_train+n_cal+n_test of all_experiments.csv.
     """
     import pickle
     with open(os.path.join(RESULTS_DIR, '_severson_cache.pkl'), 'rb') as f:
@@ -217,7 +217,7 @@ def main():
                     try:
                         row = run_one(mn, ne, seed, tr, cal, te)
                     except Exception as e:
-                        print(f"  [{cnt}/{total}] {mn} ne={ne} f={fold} s={seed} LOI: {str(e)[:70]}")
+                        print(f"  [{cnt}/{total}] {mn} ne={ne} f={fold} s={seed} ERROR: {str(e)[:70]}")
                         continue
                     if row is None:
                         continue
@@ -233,7 +233,7 @@ def main():
                     print(f"  [{cnt}/{total}] {mn:<16s} ne={ne:>3d} f={fold} s={seed}  "
                           f"MAE={row['MAE']:7.1f}  [{row['train_time_s']:5.1f}s]  ETA {eta:5.1f}p")
 
-    print(f"\nXONG sau {(time.time()-t0)/60:.1f} phut -> {OUT}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min -> {OUT}")
 
 
 if __name__ == '__main__':

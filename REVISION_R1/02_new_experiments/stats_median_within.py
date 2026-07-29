@@ -88,15 +88,15 @@ def main():
         ok &= good
         print(f"   {m:<16} {got[0]:6.1f} {got[1]:6.1f} {got[2]:6.1f}   "
               f"Table 1: {ref[0]:6.1f} {ref[1]:6.1f} {ref[2]:6.1f}   "
-              f"{'KHOP' if good else '>>> LECH <<<'}")
+              f"{'MATCH' if good else '>>> MISMATCH <<<'}")
     if not ok:
         sys.exit("CONTROL FAILED. Do not use these results.")
 
-    for metric, better, sign in (('MAE', 'thap hon', +1),
-                                 ('MedianAE', 'thap hon', +1),
-                                 ('Within_100', 'cao hon', -1)):
+    for metric, better, sign in (('MAE', 'lower', +1),
+                                 ('MedianAE', 'lower', +1),
+                                 ('Within_100', 'higher', -1)):
         print("\n" + "=" * 88)
-        print(f"{metric}  (PINN-Knee {better} = tot hon).  "
+        print(f"{metric}  (PINN-Knee {better} = better).  "
               f"delta = PINN - baseline, multiplied by {sign:+d} so negative means PINN is better")
         print("=" * 88)
         print(f"{'n_early':>8}{'baseline':>18}{'PINN':>9}{'baseline':>10}"
@@ -109,7 +109,7 @@ def main():
                 if len(q) != len(p_) or len(p_) < 5:
                     continue
                 pv_, qv_ = p_[metric].values, q[metric].values
-                diff = sign * (pv_ - qv_)          # am = PINN tot hon
+                diff = sign * (pv_ - qv_)          # am = PINN better
                 lo, hi = bca(diff)
                 try:
                     w = wilcoxon(pv_, qv_, alternative='less' if sign > 0 else 'greater').pvalue
@@ -153,7 +153,7 @@ def main():
         for fam in ('deep-learning', 'classical'):
             sub = out[(out.metric == metric) & (out.family == fam)]
             print(f"   {metric:<11} vs {fam:<14}: "
-                  f"{int(sub.favours_pinn.sum())}/{len(sub)} phep so loai tru 0")
+                  f"{int(sub.favours_pinn.sum())}/{len(sub)} comparisons exclude 0")
 
 
 if __name__ == '__main__':

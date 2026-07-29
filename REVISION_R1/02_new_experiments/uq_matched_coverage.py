@@ -81,9 +81,9 @@ def main():
         good = abs(got - TABLE1_GP[ne]) <= 0.15
         ok &= good
         print(f"   n_early={ne:>3}: {got:>6.1f}  vs Table 1 {TABLE1_GP[ne]:>6.1f}  "
-              f"{'KHOP' if good else '>>> LECH <<<'}")
+              f"{'MATCH' if good else '>>> MISMATCH <<<'}")
     if not ok:
-        sys.exit("\nDOI CHUNG THAT BAI.")
+        sys.exit("\nCONTROL FAILED.")
 
     cv = pd.read_csv(os.path.join(HERE, 'cvplus_conformal.csv'))
     cvg = cv.groupby('n_early').agg(PICP=('PICP', 'mean'), MPIW=('MPIW', 'mean'))
@@ -93,7 +93,7 @@ def main():
     print("MATCHED COVERAGE: what nominal level does the GP need, and how wide is it then?")
     print("=" * 80)
     print(f"{'n_early':>8}{'CV+ PICP':>10}{'CV+ MPIW':>10}"
-          f"{'GP muc c.thiet':>16}{'GP PICP':>10}{'GP MPIW':>10}{'ket luan':>18}")
+          f"{'GP level needed':>16}{'GP PICP':>10}{'GP MPIW':>10}{'verdict':>18}")
     print("-" * 80)
     rows = []
     for ne in (50, 100, 150):
@@ -110,13 +110,13 @@ def main():
             verd = 'GP cannot reach it'
         else:
             nom, p, w = hit
-            verd = 'CV+ HEP hon' if cvw < w else 'GP hep hon'
+            verd = 'CV+ narrower' if cvw < w else 'GP narrower'
         rows.append(dict(n_early=ne, cv_picp=target, cv_mpiw=cvw,
                          gp_nominal=nom, gp_picp=p, gp_mpiw=w, verdict=verd))
         print(f"{ne:>8}{target:>10.3f}{cvw:>10.0f}{nom:>16.3%}{p:>10.3f}{w:>10.0f}{verd:>18}")
 
     pd.DataFrame(rows).to_csv(os.path.join(HERE, 'uq_matched_coverage.csv'), index=False)
-    print("\nDa ghi: uq_matched_coverage.csv")
+    print("\nWrote: uq_matched_coverage.csv")
 
 
 if __name__ == '__main__':

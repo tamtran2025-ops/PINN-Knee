@@ -1,14 +1,14 @@
 """
-R3-3 v2: log vs raw target  -  dung Pure_NN (target transform BEN NGOAI)
+R3-3 v2: log vs raw target  -  uses Pure_NN with the target transform applied EXTERNALLY
 =====================================================================
-v1 dung PINN_Knee bi hong: PINN_Knee.compute_loss HARDCODE log1p(pred)
-(models.py:789), nen tat use_log_target tao mismatch scale -> raw MAE 3020 (artifact).
+v1 using PINN_Knee was broken: PINN_Knee.compute_loss HARDCODE log1p(pred)
+(models.py:789), so disabling use_log_target creates a scale mismatch -> raw MAE 3020 (artifact).
 
-Pure_NN.forward = MLP thuan, target transform ap BEN NGOAI -> test log vs raw
-CONG BANG. Cung split, cung model, chi khac target preprocessing.
+Pure_NN.forward = a plain MLP with the target transform applied EXTERNALLY -> test log vs raw
+This is a fair comparison: same split, same model, only the target preprocessing differs.
 
-  log: train MSE tren log1p(y), predict = expm1(output)
-  raw: train MSE tren y tho,     predict = output
+  log: train MSE on log1p(y), predict = expm1(output)
+  raw: train MSE on raw y,       predict = output
 
 Control: the log-target Pure_NN MAE at n_early=100 must be near the Experiment 1 value (~161.5).
 """
@@ -38,7 +38,7 @@ NE, SEEDS, PATIENCE, MIN_DELTA = 100, [0, 1, 2], 150, 0.01
 
 
 def train_mlp(model, Xtr, ytr_t, Xv, yv_t):
-    """Train Pure_NN tren target da transform (ytr_t). .squeeze() (H1 fix)."""
+    """Train Pure_NN on the transformed target (ytr_t). .squeeze() (H1 fix)."""
     Xt = torch.tensor(Xtr, dtype=torch.float32).to(DEVICE)
     yt = torch.tensor(ytr_t, dtype=torch.float32).to(DEVICE)
     has_v = Xv is not None and yv_t is not None and len(yv_t) > 0
@@ -75,7 +75,7 @@ def train_mlp(model, Xtr, ytr_t, Xv, yv_t):
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     splits = _kfold_split(cells, 5, seed=42)
@@ -112,14 +112,14 @@ def main():
                                  'MAE': round(float(np.mean(err[mask])), 2),
                                  'RMSE': round(float(np.sqrt(np.mean((pred[mask]-yte[mask])**2))), 2),
                                  'MedAE': round(float(np.median(err[mask])), 2)})
-        print(f"  fold {fold} xong", flush=True)
+        print(f"  fold {fold} done", flush=True)
 
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader(); w.writerows(rows)
 
     print("\n" + "=" * 56)
-    print("  LOG vs RAW target (Pure_NN, trung binh)")
+    print("  LOG vs RAW target (Pure_NN, mean)")
     print("=" * 56)
     print(f"  {'stratum':<9s}{'metric':<7s}{'LOG':>9s}{'RAW':>9s}")
     for st in ('all', 'short', 'medium', 'long'):
@@ -130,8 +130,8 @@ def main():
                 print(f"  {st:<9s}{mt:<7s}{np.mean(lg):>9.1f}{np.mean(rw):>9.1f}")
         print()
     lg = [r['MAE'] for r in rows if r['target'] == 'log' and r['stratum'] == 'all']
-    print(f"  DOI CHUNG: Pure_NN log MAE={np.mean(lg):.1f} (Exp1 Pure_NN ~161.5)")
-    print(f"  {'OK' if abs(np.mean(lg)-161.5) < 20 else '*** LECH ***'}", flush=True)
+    print(f"  Control: Pure_NN log MAE={np.mean(lg):.1f} (Exp1 Pure_NN ~161.5)")
+    print(f"  {'OK' if abs(np.mean(lg)-161.5) < 20 else '*** MISMATCH ***'}", flush=True)
 
 
 if __name__ == '__main__':

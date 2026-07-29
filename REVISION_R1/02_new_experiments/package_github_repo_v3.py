@@ -37,7 +37,7 @@ for d in (D_SC, D_SCE, D_SCA, D_RES, D_EXP):
 CORE = ['models.py', 'train.py', 'features.py', 'config.py', 'metrics.py',
         'knee_detection.py', 'data_loader.py']
 CORE_EXP = ['run_experiments.py', 'sensitivity_eq3.py', 'nasa_finetune.py',
-            # BAT BUOC: sensitivity_eq3/nasa_finetune import severson_only;
+            # REQUIRED: sensitivity_eq3/nasa_finetune import severson_only;
             # lambda_sensitivity is cited by REPRODUCE.md and by the Response (Table S6)
             'severson_only.py', 'lambda_sensitivity.py']
 CORE_ANA = ['uncertainty.py']   # train.py + run_experiments.py import module nay
@@ -60,7 +60,7 @@ SCRIPTS = [
     'diag_physics_loss.py',   # magnitude of each loss term (Section 3.3.3)
     'stats_median_within.py', # paired testing for median AE and within-100 (Table S11)
     'uq_conditional_coverage.py',  # coverage within each lifespan group (Table S12)
-    'stats_sensor_bias.py',        # significance test for the degradation gap (Section 5.12.1)
+    'stats_sensor_bias.py',        # significance test for the degradation by a factor of (Section 5.12.1)
 ]
 CSVS = ['rerun_exp1_fixed.csv', 'classical_log_full.csv', 'classical_log_table1.csv',
         'manuscript_stats.json', 'ablation_architecture.csv',
@@ -70,7 +70,7 @@ CSVS = ['rerun_exp1_fixed.csv', 'classical_log_full.csv', 'classical_log_table1.
         'batch_transfer_fixed.csv', 'data_efficiency_fixed.csv',
         'sensor_bias_drift_results.csv', 'tongji_finetune_v2.csv',
         'preknee_subset_eval.csv', 'r2_3_bounds_percell.csv', 'robust_metrics_5splits.csv',
-        # R1-5: ma tran dac trung DA TRICH, de nguoi khac khoi xu ly lai .mat
+        # R1-5: the EXTRACTED feature matrix, so others need not reprocess the .mat files
         'features_n_early_50.csv', 'features_n_early_100.csv', 'features_n_early_150.csv',
         'uq_gp_vs_cvplus.csv', 'uq_matched_coverage.csv', 'uq_gp_cvplus.csv',
         'check_protocol_pinn.csv', 'stats_median_within.csv', 'uq_conditional_coverage.csv', 'stats_sensor_bias.csv']
@@ -96,7 +96,7 @@ cp(os.path.join(SC_SRC, '_experiments'), CORE_EXP, D_SCE, 'Paper_Knee/scripts/_e
 cp(os.path.join(SC_SRC, '_analysis'), CORE_ANA, D_SCA, 'Paper_Knee/scripts/_analysis')
 cp(RES_SRC, RES_FILES, D_RES, 'Paper_Knee/results')
 cp(EXP_SRC, SCRIPTS, D_EXP, 'REVISION_R1/02_new_experiments (script)')
-cp(EXP_SRC, CSVS, D_EXP, 'REVISION_R1/02_new_experiments (ket qua)')
+cp(EXP_SRC, CSVS, D_EXP, 'REVISION_R1/02_new_experiments (results)')
 
 # supplementary figures, shipped so the Supplementary rebuilds exactly as submitted
 FIG_SRC = os.path.join(ROOT, 'REVISION_R1', '03_new_figures', 'supplementary')
@@ -109,5 +109,5 @@ cp(FIG_SRC, ['FigureS1_capacity_fade_three_knees.png',
 # .gitignore
 open(os.path.join(REPO, '.gitignore'), 'w', encoding='utf-8').write(
     "__pycache__/\n*.pyc\n*.pkl\nfigures_new/\n.ipynb_checkpoints/\n.DS_Store\n")
-print("  .gitignore: da tao")
+print("  .gitignore: created")
 print(f"\nXong. Repo: {REPO}")

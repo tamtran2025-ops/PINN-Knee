@@ -90,7 +90,7 @@ def main():
 
     allq = np.concatenate([cv.y.values, gp.y.values])
     q33, q67 = np.quantile(allq, [1 / 3, 2 / 3])
-    print(f"Phan tang (tercile knee that): short < {q33:.0f}, medium < {q67:.0f}, long >= {q67:.0f}")
+    print(f"Strata (terciles of the true knee): short < {q33:.0f}, medium < {q67:.0f}, long >= {q67:.0f}")
 
     print("\nControl: marginal CV+ coverage (Section 5.3: 0.958 / 0.974 / 0.973)")
     ok = True
@@ -100,7 +100,7 @@ def main():
         good = abs(got - REF_MARGINAL[ne]) <= 0.012
         ok &= good
         print(f"   n_early={ne:>3}: {got:.3f}  vs {REF_MARGINAL[ne]:.3f}  "
-              f"{'KHOP' if good else '>>> LECH <<<'}")
+              f"{'MATCH' if good else '>>> MISMATCH <<<'}")
     if not ok:
         sys.exit("CONTROL FAILED. Do not use these results.")
 
@@ -110,7 +110,7 @@ def main():
         print("\n" + "=" * 78)
         print(f"{name}: coverage within each lifespan group")
         print("=" * 78)
-        print(f"{'n_early':>8}{'nhom':>10}{'n cell':>9}{'coverage':>11}{'do rong TB':>13}")
+        print(f"{'n_early':>8}{'group':>10}{'n cell':>9}{'coverage':>11}{'mean width':>13}")
         print("-" * 78)
         for ne in (50, 100, 150):
             s0 = df[df.n_early == ne]
@@ -140,7 +140,7 @@ def main():
                                 coverage=float(((s.y >= s.lo) & (s.y <= s.hi)).mean()),
                                 width=float((s.hi - s.lo).mean())))
     pd.DataFrame(out).to_csv(os.path.join(HERE, 'uq_conditional_coverage.csv'), index=False)
-    print("Da ghi uq_conditional_coverage.csv")
+    print("Wrote uq_conditional_coverage.csv")
 
 
 if __name__ == '__main__':

@@ -75,11 +75,11 @@ def run_filter(raw, fn, label, verbose_every=35):
 def main():
     print(f"Output from: {os.path.abspath(__file__)}", flush=True)
     raw = load_raw()
-    assert len(raw) == 140, f"Mong doi 140 cell tho, nhan {len(raw)}"   # muc R4
-    print(f"Nap tu .mat: {len(raw)} cell tho  OK\n", flush=True)
+    assert len(raw) == 140, f"Expected 140 raw cells, got {len(raw)}"   # step R4
+    print(f"Loaded from .mat: {len(raw)} raw cells  OK\n", flush=True)
 
     cache_names = {c['name'] for c in pickle.load(open(CACHE, 'rb'))}
-    print(f"Cache doi chieu: {len(cache_names)} cell\n", flush=True)
+    print(f"Reference cache: {len(cache_names)} cell\n", flush=True)
 
     results = {}
     for label, fn in FILTERS.items():
@@ -101,7 +101,7 @@ def main():
     ok_n = len(ctrl_names) == 117
     ok_set = ctrl_names == cache_names
     print(f"  cells = {len(ctrl_names)}  -> {'OK' if ok_n else '*** WRONG ***'}")
-    print(f"  trung khop cache -> {'OK' if ok_set else '*** SAI ***'}")
+    print(f"  matches the cache -> {'OK' if ok_set else '*** WRONG ***'}")
     if not (ok_n and ok_set):
         print("\n  CONTROL FAILED: the environment has changed. Do not trust the results below.")
         return
@@ -110,12 +110,12 @@ def main():
     hyp_names = results["gia_thuyet_chi_Q>0"][0]
     n = len(hyp_names)
     print("\n" + "=" * 68)
-    print(f"GIA THUYET 'chi Q > 0'  ->  {n} cell")
+    print(f"HYPOTHESIS 'chi Q > 0'  ->  {n} cell")
     print("=" * 68)
     if n == 118:
         print("  => 118. The published number is correct; the abstract needs no change.")
         extra = sorted(hyp_names - cache_names)
-        print(f"  Cell thu 118: {extra}")
+        print(f"  The 118th cell: {extra}")
         for e in extra:
             k = dict(results['gia_thuyet_chi_Q>0'][2:] and
                      {n_: k_ for n_, k_ in

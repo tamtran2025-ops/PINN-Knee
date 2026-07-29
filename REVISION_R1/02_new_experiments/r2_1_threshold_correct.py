@@ -31,7 +31,7 @@ NE, SEEDS = 100, [0, 1, 2]
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
 
@@ -49,7 +49,7 @@ def main():
     rowsA = []
     for T in (80, 100, 120):
         n = int((spreads <= T).sum())
-        print(f"  T={T:>3d} cycles: {n:>3d}/117 cell dong thuan ({n/117*100:.0f}%)")
+        print(f"  T={T:>3d} cycles: {n:>3d}/117 cells concordant ({n/117*100:.0f}%)")
         rowsA.append({'part': 'A_consensus', 'threshold': T, 'n_cells': n,
                       'pct': round(n / 117 * 100, 1)})
 
@@ -82,15 +82,15 @@ def main():
                 gt = np.array([c['knee_details'].get(meth, c['knee_cycle']) for c in te_cells],
                               float)
                 res[meth].append(np.mean(np.abs(pred - gt)))
-        print(f"  fold {fold} xong", flush=True)
+        print(f"  fold {fold} done", flush=True)
 
     print(f"\n  {'ground-truth':<20s}{'MAE':>8s}")
     for k in ('median', 'bacon_watts', 'curvature', 'second_derivative'):
         print(f"  {k:<20s}{np.mean(res[k]):>8.1f}")
         rowsA.append({'part': 'B_sensitivity', 'threshold': k, 'n_cells': 117,
                       'pct': round(float(np.mean(res[k])), 2)})
-    print(f"\n  DOI CHUNG: MAE vs median = {np.mean(res['median']):.1f} (PINN that ~139)")
-    print(f"  {'OK' if abs(np.mean(res['median'])-139) < 10 else '*** LECH ***'}", flush=True)
+    print(f"\n  Control: MAE vs median = {np.mean(res['median']):.1f} (PINN that ~139)")
+    print(f"  {'OK' if abs(np.mean(res['median'])-139) < 10 else '*** MISMATCH ***'}", flush=True)
 
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=['part', 'threshold', 'n_cells', 'pct'])

@@ -29,7 +29,7 @@ N_EARLY = [50, 100, 150]
 
 
 def main():
-    print(f"Ghi: {OUT}", flush=True)
+    print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
     splits = _kfold_split(cells, 5, seed=42)
@@ -51,7 +51,7 @@ def main():
                     met = evaluate_knee_predictions(yte, pred)
                     rows.append({'model': mn, 'n_early': ne, 'seed': seed, 'fold': fold,
                                  **{k: round(float(v), 4) for k, v in met.items()}})
-        print(f"  ne={ne} xong ({time.time()-t0:.0f}s)", flush=True)
+        print(f"  ne={ne} done ({time.time()-t0:.0f}s)", flush=True)
 
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
@@ -69,9 +69,9 @@ def main():
         ma, md, w5 = refmap[k]
         if abs(r['MAE']-ma) > 0.01 or abs(r['MedianAE']-md) > 0.01 or abs(r['Within_50']-w5) > 0.001:
             bad += 1
-            print(f"  LECH {k}: MAE {r['MAE']} vs {ma}")
+            print(f"  MISMATCH {k}: MAE {r['MAE']} vs {ma}")
     print(f"\n  Control: {len(rows)-bad}/{len(rows)} values match the previous CSV exactly")
-    print("  " + ("OK" if bad == 0 else f"*** {bad} LECH ***"), flush=True)
+    print("  " + ("OK" if bad == 0 else f"*** {bad} MISMATCH ***"), flush=True)
 
 
 if __name__ == '__main__':
