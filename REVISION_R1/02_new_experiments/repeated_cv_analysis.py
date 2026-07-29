@@ -93,7 +93,7 @@ def main():
               f"   -> {verdict}")
         print(f"    (t-test thuong  95%CI : [{lo_n:+.1f}, {hi_n:+.1f}]   p = {p_naive:.4f}"
               f"   <- optimistic, not valid for repeated CV)")
-        print(f"    (Wilcoxon hai phia    : p = {p_w:.4f})")
+        print(f"    (Wilcoxon two-sided   : p = {p_w:.4f})")
 
     print("\n" + "=" * 78)
     print("  HOW TO READ")

@@ -69,7 +69,7 @@ def main():
                 ctrl[fr] = np.mean(v)
         print(line)
     print("\n  Control, original XGBoost: 198.8 / 239.0 / 181.2 / 177.2")
-    print(f"  XGBoost moi          : " + " / ".join(f"{ctrl[f]:.1f}" for f in FRACS), flush=True)
+    print(f"  XGBoost new          : " + " / ".join(f"{ctrl[f]:.1f}" for f in FRACS), flush=True)
 
 
 if __name__ == '__main__':

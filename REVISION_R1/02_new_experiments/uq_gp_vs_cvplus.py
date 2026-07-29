@@ -88,7 +88,7 @@ def main():
     for ne in (50, 100, 150):
         for nominal in (0.90, 0.95):
             s = g[(g.n_early == ne) & (g.nominal == nominal)]
-            flag = '  <- THIEU' if s.PICP.mean() < nominal - 0.02 else ''
+            flag = '  <- BELOW' if s.PICP.mean() < nominal - 0.02 else ''
             print(f"{ne:>8}{'Gaussian Process (Bayes)':>34}{nominal:>16.0%}"
                   f"{s.PICP.mean():>9.3f}{s.MPIW.mean():>9.0f}{flag}")
         r = cvg.loc[ne]

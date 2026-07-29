@@ -40,7 +40,7 @@ def load():
     for d in (a, b):
         miss = [c for c in cols if c not in d.columns]
         if miss:
-            sys.exit(f"thieu cot {miss}")
+            sys.exit(f"missing columns {miss}")
     # Important: rerun_exp1_fixed.csv also holds the three classical models, in NON-LOG form.
     # Table 1 takes the classical models from classical_log_full.csv under the log target.
     # Merging both would mix log with non-log, so the classical rows are dropped here.

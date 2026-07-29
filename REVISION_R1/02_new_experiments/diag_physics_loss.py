@@ -80,14 +80,14 @@ def main():
         pr = knee_raw.cpu().numpy().ravel()
     for nm, v in (('knee_physics', kp), ('delta_NN', dl), ('final prediction', pr)):
         print(f"   {nm:<14} mean {v.mean():8.1f}   std {v.std():7.1f}   "
-              f"he so bien thien {abs(v.std()/v.mean()):.3f}")
+              f"coeff. of variation {abs(v.std()/v.mean()):.3f}")
     print(f"\n   true labels: mean {ytr.mean():.1f}, std {ytr.std():.1f}")
     print()
     for nm, v in (('a', params['a']), ('b', params['b']), ('c', params['c']),
                   ('d', params['d']), ('s', params['s'])):
         vv = v.detach().cpu().numpy().ravel()
         print(f"   parameter {nm}: mean {vv.mean():.5f}  std {vv.std():.5f}  "
-              f"he so bien thien {abs(vv.std()/vv.mean()):.4f}")
+              f"coeff. of variation {abs(vv.std()/vv.mean()):.4f}")
 
 
 if __name__ == '__main__':

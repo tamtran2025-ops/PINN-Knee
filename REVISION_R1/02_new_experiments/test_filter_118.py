@@ -38,7 +38,7 @@ def load_raw():
     raw = {}
     for b, fn in FILES.items():
         p = os.path.join(D, fn)
-        assert os.path.exists(p), f"THIEU FILE: {p}"
+        assert os.path.exists(p), f"MISSING FILE: {p}"
         with h5py.File(p, 'r') as f:
             batch = f['batch']
             for i in range(batch['summary'].shape[0]):
@@ -110,7 +110,7 @@ def main():
     hyp_names = results["gia_thuyet_chi_Q>0"][0]
     n = len(hyp_names)
     print("\n" + "=" * 68)
-    print(f"HYPOTHESIS 'chi Q > 0'  ->  {n} cell")
+    print(f"HYPOTHESIS 'Q > 0 only'  ->  {n} cell")
     print("=" * 68)
     if n == 118:
         print("  => 118. The published number is correct; the abstract needs no change.")

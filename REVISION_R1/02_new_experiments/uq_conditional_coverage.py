@@ -120,9 +120,9 @@ def main():
                 if s.empty:
                     continue
                 cov = float(((s.y >= s.lo) & (s.y <= s.hi)).mean())
-                flag = '  <- THIEU' if cov < 0.90 else ''
+                flag = '  <- BELOW' if cov < 0.90 else ''
                 print(f"{ne:>8}{st:>10}{len(s):>9}{cov:>11.3f}{(s.hi - s.lo).mean():>13.0f}{flag}")
-            print(f"{ne:>8}{'(bien)':>10}{len(s0):>9}{marg:>11.3f}"
+            print(f"{ne:>8}{'(marginal)':>10}{len(s0):>9}{marg:>11.3f}"
                   f"{(s0.hi - s0.lo).mean():>13.0f}")
             print()
 

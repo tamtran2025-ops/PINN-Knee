@@ -46,7 +46,7 @@ def main():
             except Exception:
                 p = float('nan')
             sig = p < 0.05
-            print(f"   -> {a} vs {b}: chenh {dd.mean():+.2f} cycles, Wilcoxon p={p:.4f}  "
+            print(f"   -> {a} vs {b}: gap {dd.mean():+.2f} cycles, Wilcoxon p={p:.4f}  "
                   f"{'SIGNIFICANT' if sig else 'not significant'}")
             rows.append(dict(condition=cond, model_a=a, model_b=b,
                              deg_a=deg[a].mean(), deg_b=deg[b].mean(),

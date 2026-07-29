@@ -39,7 +39,7 @@ plt.rcParams.update({
 
 
 def transform(th):
-    """th = tanh(z) (N,5) -> a,b,c,d,s da bien doi (theo models.py)."""
+    """th = tanh(z) (N,5) -> a,b,c,d,s after the bounding transform (theo models.py)."""
     a = 0.9 + 0.2 * th[:, 0]
     b = np.exp(-6.0 + 1.5 * th[:, 1])
     c = 0.15 + 0.10 * th[:, 2]

@@ -42,7 +42,7 @@ def raw_tanh(model, Xn):
 
 
 def transformed(th):
-    """th = tanh(z) (N,5) -> a,b,c,d,s da bien doi."""
+    """th = tanh(z) (N,5) -> a,b,c,d,s after the bounding transform."""
     a = 0.9 + 0.2 * th[:, 0]
     b = np.exp(-6.0 + 1.5 * th[:, 1])
     c = 0.15 + 0.1 * th[:, 2]

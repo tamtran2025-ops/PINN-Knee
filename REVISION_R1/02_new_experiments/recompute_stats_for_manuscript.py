@@ -101,7 +101,7 @@ def main():
                 'n': mae[2]}
         print(line)
 
-    # ============ 5.1.1 WILCOXON (mot phia, 5 fold) ============
+    # ============ 5.1.1 WILCOXON (one-sided, 5 folds) ============
     fs = fold_series(rows)
     print("\n" + "=" * 100)
     print("5.1.1 WILCOXON one-sided (PINN better), n=5 fold seed-averaged  (p; * <=0.05)")

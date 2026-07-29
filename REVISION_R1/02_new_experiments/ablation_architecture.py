@@ -61,7 +61,7 @@ class MatchedMLP(nn.Module):
 
     MatchedMLP(hidden=h): 25h + h^2/2 + h + 1
         h=64  -> 3713 parameters, about HALF, which would bias the comparison towards PINN_Knee
-        h=100 -> 7601  (khop)
+        h=100 -> 7601  (matched)
 
     We use h=100. The script prints the realised parameter counts so the match can be checked.
     """

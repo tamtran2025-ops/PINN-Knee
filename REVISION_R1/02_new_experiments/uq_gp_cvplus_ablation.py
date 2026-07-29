@@ -98,12 +98,12 @@ def main():
     print("-" * 84)
     for ne in (50, 100, 150):
         base = float(cvg.loc[ne, 'MPIW'])
-        print(f"{ne:>8}{'PINN + CV+':>26}{cvg.loc[ne, 'PICP']:>9.3f}{base:>9.0f}{'(moc)':>20}")
+        print(f"{ne:>8}{'PINN + CV+':>26}{cvg.loc[ne, 'PICP']:>9.3f}{base:>9.0f}{'(reference)':>20}")
         r = agg.loc[ne]
         print(f"{ne:>8}{'GP + CV+':>26}{r.PICP:>9.3f}{r.MPIW:>9.0f}"
               f"{f'{100*(r.MPIW/base-1):+.0f}%':>20}")
         gp_w = float(mc.loc[ne, 'gp_mpiw'])
-        print(f"{ne:>8}{'GP + Bayesian (khop cov)':>26}"
+        print(f"{ne:>8}{'GP + Bayesian (matched cov)':>26}"
               f"{mc.loc[ne, 'gp_picp']:>9.3f}{gp_w:>9.0f}"
               f"{f'{100 * (gp_w / base - 1):+.0f}%':>20}")
         print()

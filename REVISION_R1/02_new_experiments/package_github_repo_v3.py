@@ -88,7 +88,7 @@ def cp(src_dir, names, dst_dir, label):
             shutil.copy2(s, os.path.join(dst_dir, f)); n += 1
         else:
             miss.append(f)
-    print(f"  {label}: {n} file" + (f"  (thieu: {miss})" if miss else ""))
+    print(f"  {label}: {n} file" + (f"  (missing: {miss})" if miss else ""))
 
 
 cp(SC_SRC, CORE, D_SC, 'Paper_Knee/scripts')
