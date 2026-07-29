@@ -35,7 +35,7 @@ print(f"n={len(rows)} cell | median rho={np.median(ratio)*100:.1f}% "
 COL = {'near': '#2CA02C', 'mid': '#4C72B0', 'far': '#C44E52'}
 LAB = {'near': 'near median', 'mid': 'mid', 'far': 'far from median'}
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.25, 5.0))  # AR ~2.65 (goc 2.671)
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.25, 5.0))  # AR ~2.65 (original 2.671)
 
 # ---- (a) correction ratio ----
 for k in ('near', 'mid', 'far'):

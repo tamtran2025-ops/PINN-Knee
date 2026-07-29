@@ -67,7 +67,7 @@ def main():
     for k, v in terms.items():
         print(f"   {k:<22} = {v:.6f}   ({100*v/tot:5.1f}% of total)")
     print(f"\n   -> physics {'LARGER THAN' if 0.05*loss_phys > loss_data else 'SMALLER THAN'} data "
-          f"by a factor of {max(0.05*loss_phys, loss_data)/min(0.05*loss_phys, loss_data):.1f} lan")
+          f"by a factor of {max(0.05*loss_phys, loss_data)/min(0.05*loss_phys, loss_data):.1f}x")
     print("   => the physics losses are NOT neutralised by a too-small weight.")
 
     print()

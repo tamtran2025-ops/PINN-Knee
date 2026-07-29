@@ -100,7 +100,7 @@ def run_one_model(m_name, tr, cal, te, ne, split_seed, fold):
 def main():
     cells = load_paper_pool()
     total = len(SPLIT_SEEDS) * K * len(EARLY_BUDGETS) * len(FAST_MODELS)
-    print(f"Bt u kim tra 15 pht: {total} lt hun luyn ({len(SPLIT_SEEDS)} splits x {K} folds x 3 budgets x 8 models)")
+    print(f"Starting the 15-minute check: {total} training runs ({len(SPLIT_SEEDS)} splits x {K} folds x 3 budgets x 8 models)")
 
     done = set()
     if os.path.exists(OUT):
@@ -129,7 +129,7 @@ def main():
                         if idx % 10 == 0:
                             print(f"  [{idx:>3d}/{total}] ss={ss} f={fold} ne={ne:<3d} m={m_name:<15s} MAE={res['MAE']:>6.2f} MedianAE={res['MedianAE']:>6.2f}")
 
-    print(f"\nDone in {(time.time()-t0)/60:.1f} pht -> {OUT}")
+    print(f"\nDone in {(time.time()-t0)/60:.1f} min -> {OUT}")
 
 if __name__ == '__main__':
     main()

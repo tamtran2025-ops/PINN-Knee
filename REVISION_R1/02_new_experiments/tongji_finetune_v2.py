@@ -110,7 +110,7 @@ def main():
         bases.append(m)
     ens = np.mean([predict(m, X_te_n) for m in bases], axis=0)
     ens_mae = float(np.mean(np.abs(ens - y_te)))
-    print(f"[2/3] Control: zero-shot ensemble = {ens_mae:.2f} (goc {REF_ZS} {TOL})",
+    print(f"[2/3] Control: zero-shot ensemble = {ens_mae:.2f} (original {REF_ZS} {TOL})",
           flush=True)
     if abs(ens_mae - REF_ZS) > TOL:
         print("*** MISMATCH: STOPPING ***", flush=True)
@@ -164,7 +164,7 @@ def main():
     da = np.array([r['delta_after_full'] for r in rows], float)
     pb = np.array([r['phys_before'] for r in rows], float)
     pa = np.array([r['phys_after_full'] for r in rows], float)
-    print(f"\n  CO CHE (cell fit): delta {db.mean():+.0f} -> {da.mean():+.0f} ; "
+    print(f"\n  MECHANISM (cell fit): delta {db.mean():+.0f} -> {da.mean():+.0f} ; "
           f"physics {pb.mean():.0f} -> {pa.mean():.0f}")
     print(f"  Done {(time.time()-t0)/60:.1f} min", flush=True)
 

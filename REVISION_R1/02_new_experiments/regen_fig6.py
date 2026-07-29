@@ -140,7 +140,7 @@ def main():
     plt.close(fig)
     from PIL import Image
     w, h = Image.open(OUT).size
-    print(f"\nSaved {OUT}: {w}x{h} (AR={w/h:.3f}; goc 1.687)", flush=True)
+    print(f"\nSaved {OUT}: {w}x{h} (AR={w/h:.3f}; original 1.687)", flush=True)
 
 
 if __name__ == '__main__':

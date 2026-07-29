@@ -81,7 +81,7 @@ def main():
     splits = _kfold_split(cells, 5, seed=42)
     all_y = np.array([c['knee_cycle'] for c in cells], float)
     q33, q67 = np.quantile(all_y, [1/3, 2/3])
-    print(f"Doi cell: short<{q33:.0f}, med<{q67:.0f}, long>={q67:.0f}\n", flush=True)
+    print(f"Cell lifespan: short<{q33:.0f}, med<{q67:.0f}, long>={q67:.0f}\n", flush=True)
 
     rows = []
     for fold, (tr, cal, te) in enumerate(splits):

@@ -53,7 +53,7 @@ def main():
 
     ntr = np.mean([float(r['n_train']) for r in rows])
     nte = np.mean([float(r['n_test']) for r in rows])
-    print(f"n = {n} observed muc fold   (n_train~{ntr:.0f}, n_test~{nte:.0f})\n")
+    print(f"n = {n} observed at fold level (n_train~{ntr:.0f}, n_test~{nte:.0f})\n")
 
     print(f"  {'variant':<18s}{'MAE':>10s}{'std':>9s}")
     print("  " + "-" * 37)
@@ -67,7 +67,7 @@ def main():
         ('arch_only', 'mlp_matched', 'Does the architecture help?'),
         ('full', 'mlp_matched', 'the published model vs a plain MLP'),
         ('arch_only', 'full', 'Do the five physics losses help?'),
-        ('full', 'constant_median', 'vs SAN tam thuong'),
+        ('full', 'constant_median', 'vs a trivial floor'),
         ('constant_median', 'physics_only', 'Eq. (3) alone vs the floor'),
     ]
     for a, b, note in pairs:
@@ -91,7 +91,7 @@ def main():
         print(f"    folds with the expected sign     : {int(np.sum(d > 0))}/{n}")
         print(f"    Nadeau-Bengio 95% CI  : [{lo:+.1f}, {hi:+.1f}]   p = {p:.4f}"
               f"   -> {verdict}")
-        print(f"    (t-test thuong  95%CI : [{lo_n:+.1f}, {hi_n:+.1f}]   p = {p_naive:.4f}"
+        print(f"    (ordinary t-test 95% CI : [{lo_n:+.1f}, {hi_n:+.1f}]   p = {p_naive:.4f}"
               f"   <- optimistic, not valid for repeated CV)")
         print(f"    (Wilcoxon two-sided   : p = {p_w:.4f})")
 

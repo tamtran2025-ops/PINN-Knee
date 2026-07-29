@@ -108,7 +108,7 @@ def main():
                  if sub[sub.n_early == ne].PICP.mean() < nominal - 0.02]
         print(f"  GP at the {nominal:.0%} level: under-covers at {len(under)}/3 budgets"
               + (f" (n_early={under})" if under else ""))
-    print(f"  CV+ : dat {cvg.PICP.min():.3f} den {cvg.PICP.max():.3f}, "
+    print(f"  CV+ : reaches {cvg.PICP.min():.3f} to {cvg.PICP.max():.3f}, "
           f"all exceed guarantee >= 0.90 at all three budgets")
 
 

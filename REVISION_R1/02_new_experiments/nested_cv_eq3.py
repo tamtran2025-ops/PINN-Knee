@@ -110,7 +110,7 @@ def main():
         print("\n  SELF-CONSISTENCY CHECK FAILED: the rule is wrong. Stopping.")
         return
     print(f"\nPool {len(cells)} cell, n_early={N_EARLY}, "
-          f"{N_FOLDS} fold x {len(SEEDS)} seed x 2 nhanh\n", flush=True)
+          f"{N_FOLDS} fold x {len(SEEDS)} seed x 2 branches\n", flush=True)
 
     done = set()
     if os.path.exists(OUT):

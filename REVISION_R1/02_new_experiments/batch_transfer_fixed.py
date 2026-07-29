@@ -48,7 +48,7 @@ def main():
     if os.path.exists(OUT):
         for r in csv.DictReader(open(OUT, encoding='utf-8')):
             done.add((r['model'], r['n_early'], r['seed']))
-        print(f"Resume: {len(done)} run co san", flush=True)
+        print(f"Resume: {len(done)} runs already available", flush=True)
 
     t0, i, total = time.time(), 0, len(MODELS) * len(NES) * len(SEEDS)
     for ne in NES:

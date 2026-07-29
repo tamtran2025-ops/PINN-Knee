@@ -89,7 +89,7 @@ def main():
     if os.path.exists(OUT):
         for r in csv.DictReader(open(OUT, encoding='utf-8')):
             done.add((r['split_seed'], r['fold']))
-        print(f"Resume: da co {len(done)} diem\n")
+        print(f"Resume: already have {len(done)} points\n")
 
     total, i, t0 = len(SPLIT_SEEDS) * K, 0, time.time()
     for rs in SPLIT_SEEDS:

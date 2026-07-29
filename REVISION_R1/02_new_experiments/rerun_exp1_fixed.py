@@ -200,7 +200,7 @@ def main():
     if os.path.exists(OUT):
         for r in csv.DictReader(open(OUT, encoding='utf-8')):
             done.add((r['model'], r['n_early'], r['seed'], r.get('fold', '')))
-        print(f"Resume: da co {len(done)} run\n")
+        print(f"Resume: already have {len(done)} run\n")
 
     splits = _kfold_split(cells, n_folds=5, seed=42)
     total = len(MODELS) * len(EARLY_CYCLE_COUNTS) * len(SEEDS) * 5

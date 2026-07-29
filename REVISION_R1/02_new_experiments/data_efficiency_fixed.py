@@ -31,7 +31,7 @@ def main():
     print(f"Writing to: {OUT}", flush=True)
     cells = load_paper_pool()
     assert len(cells) == 117
-    # split 60/20/20 seed 42 nhu ban goc (data_loader.get_train_cal_test_split)
+    # split 60/20/20 seed 42 as in the original (data_loader.get_train_cal_test_split)
     from data_loader import get_train_cal_test_split
     tr_full, cal, te = get_train_cal_test_split(cells, train_frac=0.6,
                                                 cal_frac=0.2, seed=42)

@@ -38,7 +38,7 @@ def main():
             deg[m] = d[f'{m}_{cond}'].values - d[f'{m}_clean'].values
             pct = 100 * deg[m].mean() / d[f'{m}_clean'].mean()
             print(f"   {m:<5} {deg[m].mean():+7.2f} cycles ({pct:+5.1f}%)   "
-                  f"tung fold: {np.round(deg[m], 1)}")
+                  f"per fold: {np.round(deg[m], 1)}")
         for a, b in (('pinn', 'xgb'), ('pinn', 'rf')):
             dd = deg[a] - deg[b]
             try:

@@ -88,10 +88,10 @@ def main():
         names = {n for n, _ in valid}
         ks = np.array([k for _, k in valid])
         results[label] = (names, reasons, ks)
-        print(f"    hop le = {len(valid)}   loai = {dict(reasons)}", flush=True)
+        print(f"    valid = {len(valid)}   rejected = {dict(reasons)}", flush=True)
         print(f"    knee min={ks.min()} max={ks.max()} mean={ks.mean():.1f}",
               flush=True)
-        print(f"    so cell knee <= 50: {int((ks <= 50).sum())}\n", flush=True)
+        print(f"    cells with knee <= 50: {int((ks <= 50).sum())}\n", flush=True)
 
     # ---- control: must return exactly 117 cells and exactly the cache membership ----
     ctrl_names = results["doi_chung_0_den_1.1"][0]
@@ -121,7 +121,7 @@ def main():
                      {n_: k_ for n_, k_ in
                       zip([x for x in sorted(hyp_names)], [])}) if False else None
         ks = results["gia_thuyet_chi_Q>0"][2]
-        print(f"  so cell knee <= 50 (bi build_feature_matrix loai o ne=50): "
+        print(f"  cells with knee <= 50 (dropped by build_feature_matrix at ne=50): "
               f"{int((ks <= 50).sum())}")
     elif n == 117:
         print("  => 117, same as the current filter. The 118 figure remains unexplained.")

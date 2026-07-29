@@ -110,4 +110,4 @@ cp(FIG_SRC, ['FigureS1_capacity_fade_three_knees.png',
 open(os.path.join(REPO, '.gitignore'), 'w', encoding='utf-8').write(
     "__pycache__/\n*.pyc\n*.pkl\nfigures_new/\n.ipynb_checkpoints/\n.DS_Store\n")
 print("  .gitignore: created")
-print(f"\nXong. Repo: {REPO}")
+print(f"\nDone. Repo: {REPO}")

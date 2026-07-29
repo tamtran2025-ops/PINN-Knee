@@ -80,7 +80,7 @@ def main():
         print(f"  ne={ne} done", flush=True)
 
     print("\n" + "=" * 66)
-    print(f"  % CELL CO BOUND ACTIVE (|tanh|>{ACTIVE_THR})")
+    print(f"  % OF CELLS WITH AN ACTIVE BOUND (|tanh|>{ACTIVE_THR})")
     print("=" * 66)
     print(f"  {'param':<6s}{'ne=50':>10s}{'ne=100':>10s}{'ne=150':>10s}")
     for nm in 'abcds':
